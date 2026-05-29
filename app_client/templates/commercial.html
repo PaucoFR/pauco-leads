@@ -1,0 +1,731 @@
+<style>
+@media(max-width:768px){
+  .commercial-cards{grid-template-columns:1fr!important}
+  .commercial-cards .card{word-wrap:break-word;overflow-wrap:break-word}
+  .hero-stats{grid-template-columns:1fr!important;gap:10px!important}
+  .recruit-cards{grid-template-columns:1fr!important}
+  .recruit-cards .btn{white-space:normal!important;word-wrap:break-word}
+  .pack-features{grid-template-columns:1fr!important}
+  .recruit-checklist{grid-template-columns:1fr!important}
+}
+details[open] summary svg{transform:rotate(180deg)}
+details summary::-webkit-details-marker{display:none}
+</style>
+<!-- ═══════════════════════════════════════════════
+     PAGE: MARKETING
+     ═══════════════════════════════════════════════ -->
+{% if page == 'marketing' %}
+<div class="page" style="padding:0;max-width:none">
+  <!-- HERO -->
+  <div style="background:var(--dark);padding:48px 40px 40px;margin:-24px -24px 0;text-align:center">
+    <div style="max-width:680px;margin:0 auto">
+      <div style="font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:#F7F4EF;line-height:1.3;margin-bottom:14px">Vos concurrents sont déjà en ligne.</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;max-width:560px;margin:0 auto">85% des clients cherchent un restaurant sur Google ou les réseaux avant de réserver. Être invisible, c'est perdre des couverts chaque semaine.</div>
+    </div>
+    <!-- 3 chiffres choc -->
+    <div class="hero-stats" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:720px;margin:36px auto 0">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">4,2x</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">plus de <strong style="color:rgba(255,255,255,.75)">nouveaux clients</strong> pour les restaurants actifs sur les réseaux</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">68%</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">des clients consultent la <strong style="color:rgba(255,255,255,.75)">présence en ligne</strong> avant de choisir</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">2h</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6"><strong style="color:rgba(255,255,255,.75)">perdues chaque semaine</strong> à gérer les réseaux seul en moyenne</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div style="max-width:840px;margin:0 auto;padding:36px 24px 0">
+    <div class="section-label" style="text-align:center;font-size:12px;margin-bottom:24px">Nos formules</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px" class="commercial-cards">
+      <!-- Card 1 — Ads -->
+      <div class="card" style="padding:32px 28px;display:flex;flex-direction:column;border-radius:16px;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:36px;margin-bottom:16px">&#127919;</div>
+        <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:4px">Soyez là quand vos clients vous cherchent</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Vos concurrents font de la pub. Vous aussi, maintenant.</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:6px">
+          <span style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Google Ads & Meta Ads</span>
+        </div>
+        <div style="margin-bottom:20px"><span style="font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--green)">100&euro;</span><span style="font-size:13px;color:var(--muted)">/mois</span></div>
+        <div style="flex:1;font-size:13px;color:var(--text);line-height:2.2">
+          <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Création des campagnes Google et Facebook</div>
+          <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Ciblage géolocalisé autour de votre restaurant</div>
+          <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Optimisation du budget chaque semaine</div>
+          <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Rapport mensuel de performance détaillé</div>
+        </div>
+        <button class="btn btn-green" style="width:100%;justify-content:center;margin-top:24px;padding:14px;font-size:14px;border-radius:10px" onclick="openDevis('Google Ads & Meta Ads — 100EUR/mois')">Demander un devis gratuit &rarr;</button>
+      </div>
+      <!-- Card 2 — Reseaux sociaux -->
+      <div class="card" style="padding:32px 28px;display:flex;flex-direction:column;border-radius:16px;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:36px;margin-bottom:16px">&#128241;</div>
+        <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:4px">Une présence pro sans y passer vos soirées</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Vos clients vous suivent. Donnez-leur une raison de venir.</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:6px">
+          <span style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Reseaux sociaux</span>
+        </div>
+        <div style="margin-bottom:20px"><span style="font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--green)">400&euro;</span><span style="font-size:13px;color:var(--muted)">/mois</span></div>
+        <div style="flex:1;font-size:13px;color:var(--text);line-height:2.2">
+          <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>3 publications par semaine (Instagram + Facebook)</div>
+          <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Stories et contenus éphémères réguliers</div>
+          <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Réponses aux messages et commentaires sous 24h</div>
+          <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Rapport mensuel engagement et nouveaux abonnés</div>
+        </div>
+        <button class="btn btn-green" style="width:100%;justify-content:center;margin-top:24px;padding:14px;font-size:14px;border-radius:10px" onclick="openDevis('Reseaux sociaux — 400EUR/mois')">Demander un devis gratuit &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Card 3 — Pack Complet -->
+    <div style="background:var(--dark);border-radius:16px;padding:36px 32px;display:flex;flex-direction:column;position:relative;transition:transform .15s,box-shadow .15s;margin-bottom:32px" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,.2)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+      <span style="position:absolute;top:16px;right:16px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:5px 12px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px">Meilleure offre</span>
+      <div style="font-size:36px;margin-bottom:16px">&#128640;</div>
+      <div style="font-size:20px;font-weight:800;color:#F7F4EF;margin-bottom:4px">Tout inclus. Un interlocuteur. Zéro prise de tête.</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px">Ads + Réseaux sociaux + stratégie unifiée. Économisez 50&euro;/mois vs les deux offres séparées.</div>
+      <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:6px">
+        <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em">Pack Complet</span>
+      </div>
+      <div style="margin-bottom:20px"><span style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF">550&euro;</span><span style="font-size:13px;color:rgba(255,255,255,.35)">/mois</span> <span style="font-size:12px;color:rgba(255,255,255,.25);text-decoration:line-through;margin-left:8px">600&euro;</span></div>
+      <div class="pack-features" style="display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;font-size:13px;color:rgba(255,255,255,.6);line-height:2.2;margin-bottom:8px">
+        <div><span style="color:rgba(255,255,255,.7);font-weight:700;margin-right:6px">✓</span>Tout Google Ads & Meta Ads</div>
+        <div><span style="color:rgba(255,255,255,.7);font-weight:700;margin-right:6px">✓</span>Tout Réseaux sociaux</div>
+        <div><span style="color:rgba(255,255,255,.7);font-weight:700;margin-right:6px">✓</span>Stratégie Ads + organique coordonnée</div>
+        <div><span style="color:rgba(255,255,255,.7);font-weight:700;margin-right:6px">✓</span>Interlocuteur dédié disponible 6j/7</div>
+      </div>
+      <button style="width:100%;max-width:360px;margin:24px auto 0;padding:14px;font-size:14px;font-weight:700;border-radius:10px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#F7F4EF;cursor:pointer;font-family:inherit;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'" onclick="openDevis('Pack Complet — 550EUR/mois')">Demander un devis gratuit &rarr;</button>
+    </div>
+
+    <!-- Reassurance -->
+    <div style="background:var(--dark);border-radius:12px;padding:28px 32px;text-align:center;margin-bottom:24px">
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:#F7F4EF;line-height:1.5">Sans engagement. Contacté par Pauco dans les 24h.</div>
+    </div>
+
+    <!-- SHOOTING PHOTO -->
+    <div style="background:var(--white);border:2px solid var(--border);border-radius:16px;padding:36px;margin-bottom:24px;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:24px">📸</span>
+        <span style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--text)">Shooting photo & vidéo professionnel</span>
+        <span style="font-size:9px;font-weight:700;background:var(--green);color:#fff;padding:2px 8px;border-radius:4px;letter-spacing:.3px">OPTION</span>
+      </div>
+      <div style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px;max-width:600px">Une journée de tournage dans votre restaurant — plats, ambiance, salle, équipe, détails. Livraison de 80 à 120 photos HD et une vidéo courte 30-60 secondes pour vos réseaux.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;max-width:560px">
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text)"><span style="color:var(--green);font-size:16px">✓</span> 80 à 120 photos HD</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text)"><span style="color:var(--green);font-size:16px">✓</span> 1 vidéo courte 30-60s format réseaux</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text)"><span style="color:var(--green);font-size:16px">✓</span> Retouches professionnelles incluses</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text)"><span style="color:var(--green);font-size:16px">✓</span> Livraison sur galerie privée sous 72h</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text)"><span style="color:var(--green);font-size:16px">✓</span> Droits d'utilisation web et réseaux inclus</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text)"><span style="color:var(--green);font-size:16px">✓</span> Photographe/vidéaste pro sur place</div>
+      </div>
+
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px">
+        <span style="font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--text)">799€</span>
+        <span style="font-size:13px;color:var(--muted)">prestation unique · aucun abonnement</span>
+      </div>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:20px">Prestation réalisée en partenariat avec <a href="https://www.instagram.com/hop_prod/" target="_blank" style="color:var(--dim);text-decoration:underline">@Hop_Prod</a></div>
+
+      <button class="btn btn-green" style="padding:14px 28px;font-size:15px;border-radius:10px" onclick="document.getElementById('shooting-modal').style.display='flex'">Je suis intéressé →</button>
+    </div>
+
+    <!-- Modal shooting -->
+    <div id="shooting-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;align-items:center;justify-content:center">
+      <div style="background:#fff;border-radius:12px;padding:28px;width:440px;max-width:90vw">
+        <div style="font-size:16px;font-weight:700;margin-bottom:4px">Shooting photo & vidéo</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Paul vous contacte sous 24h pour organiser le shooting</div>
+        <div style="display:flex;gap:10px;margin-bottom:10px">
+          <div style="flex:1"><label class="form-label">Prénom</label><input type="text" id="sh-prenom" class="form-input"></div>
+          <div style="flex:1"><label class="form-label">Restaurant</label><input type="text" id="sh-resto" class="form-input" value="{{ restaurant_name }}"></div>
+        </div>
+        <div style="display:flex;gap:10px;margin-bottom:10px">
+          <div style="flex:1"><label class="form-label">Email</label><input type="email" id="sh-email" class="form-input"></div>
+          <div style="flex:1"><label class="form-label">Téléphone</label><input type="tel" id="sh-tel" class="form-input"></div>
+        </div>
+        <label class="form-label">Message (optionnel)</label>
+        <textarea id="sh-msg" class="form-input" rows="2" style="margin-bottom:14px" placeholder="Précisions, date souhaitée..."></textarea>
+        <div id="sh-result" style="display:none;background:#D1FAE5;border:1px solid #6EE7B7;border-radius:8px;padding:10px;font-size:12px;color:#065F46;margin-bottom:10px"></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn btn-outline" onclick="document.getElementById('shooting-modal').style.display='none'">Fermer</button>
+          <button class="btn btn-green" id="sh-btn" onclick="submitShooting()">Envoyer ma demande</button>
+        </div>
+      </div>
+    </div>
+    <script>
+    function submitShooting(){
+      var prenom=document.getElementById('sh-prenom').value.trim();
+      var resto=document.getElementById('sh-resto').value.trim();
+      var email=document.getElementById('sh-email').value.trim();
+      var tel=document.getElementById('sh-tel').value.trim();
+      var msg=document.getElementById('sh-msg').value.trim();
+      if(!prenom||!email)return;
+      document.getElementById('sh-btn').disabled=true;
+      fetch('/api/shooting-request',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({prenom:prenom,resto:resto,email:email,tel:tel,msg:msg})
+      }).then(function(r){return r.json()}).then(function(d){
+        var res=document.getElementById('sh-result');
+        res.style.display='block';
+        res.textContent='Paul vous contacte sous 24h pour organiser le shooting.';
+        document.getElementById('sh-btn').disabled=false;
+      }).catch(function(){
+        document.getElementById('sh-btn').disabled=false;
+        var res=document.getElementById('sh-result');
+        res.style.display='block';
+        res.style.background='#FEE2E2';res.style.borderColor='#FECACA';res.style.color='#991B1B';
+        res.textContent='Erreur r\u00e9seau, veuillez r\u00e9essayer.';
+      });
+    }
+    </script>
+
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: RECRUTEMENT
+     ═══════════════════════════════════════════════ -->
+{% if page == 'recrutement' %}
+<div class="page" style="padding:0;max-width:none">
+  <!-- HERO -->
+  <div style="background:var(--dark);padding:48px 40px 40px;margin:-24px -24px 0;text-align:center">
+    <div style="max-width:680px;margin:0 auto">
+      <div style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:#F7F4EF;line-height:1.3;margin-bottom:14px">Un poste vide coûte plus cher que notre commission.</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;max-width:560px;margin:0 auto">Un serveur absent un mois = 8 000€ de CA perdus en moyenne. Nous trouvons le bon profil en 10 jours.</div>
+    </div>
+    <!-- 3 chiffres choc -->
+    <div class="hero-stats" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:720px;margin:36px auto 0">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">47h</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">temps moyen pour <strong style="color:rgba(255,255,255,.75)">recruter seul</strong></div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">1/3</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">des embauches <strong style="color:rgba(255,255,255,.75)">ratées avant la fin</strong> de période d'essai</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">3 mois</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">de salaire — <strong style="color:rgba(255,255,255,.75)">coût réel</strong> d'un mauvais recrutement</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:840px;margin:0 auto;padding:36px 24px 0">
+    <!-- Comparatif agences -->
+    <div style="background:#0F1F14;border-radius:14px;padding:32px;margin-bottom:32px;overflow-x:auto">
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:20px">POURQUOI PAUCO RECRUTEMENT ?</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:480px">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:10px 12px;color:rgba(255,255,255,.5);font-weight:500;border-bottom:1px solid rgba(255,255,255,.1)"></th>
+            <th style="text-align:center;padding:10px 12px;color:rgba(255,255,255,.5);font-weight:500;border-bottom:1px solid rgba(255,255,255,.1)">Agence traditionnelle</th>
+            <th style="text-align:center;padding:10px 12px;color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.1)">Pauco</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Prix</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">15-20% du salaire annuel</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">400€ / 600€ / 1 000€</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Paiement</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">À la signature</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Seulement si embauché</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Garantie</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Rare</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Période d'essai incluse</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Délai</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">3-6 semaines</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">7-14 jours</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7)">Spécialité CHR</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5)">Rarement</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600">Toujours</td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.6">
+        <strong style="color:#fff">Exemple :</strong> Un chef de cuisine à 28 000€/an → une agence vous facture entre 4 200€ et 5 600€.<br>
+        <strong style="color:#fff">Pauco : 1 000€, garanti.</strong>
+      </div>
+    </div>
+
+    <!-- Cards niveaux -->
+    <div class="section-label" style="text-align:center;font-size:12px;margin-bottom:24px">Nos formules</div>
+    <div class="recruit-cards" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:16px">
+      <!-- Équipe -->
+      <div class="card" style="padding:32px 24px;display:flex;flex-direction:column;border-radius:16px;text-align:center;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:40px;margin-bottom:12px">👥</div>
+        <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:10px">Équipe</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:20px;flex:1">Serveur, Runner, Commis, Plongeur, Barman débutant</div>
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--text);margin-bottom:4px">400€</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">par recrutement</div>
+        <div style="font-size:13px;color:var(--text);margin-bottom:12px">Délai moyen : <strong style="color:var(--green)">7 jours</strong></div>
+        <button class="btn btn-outline" style="width:100%;justify-content:center;padding:12px;font-size:13px;border-radius:10px" onclick="openDevis('Recrutement Équipe — 400€')">Déposer une offre →</button>
+      </div>
+      <!-- Confirmé -->
+      <div class="card" style="padding:32px 24px;display:flex;flex-direction:column;border-radius:16px;text-align:center;border:2px solid var(--green);transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(45,106,74,.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:40px;margin-bottom:12px">⭐</div>
+        <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:10px">Confirmé</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:20px;flex:1">Chef de partie, Chef de rang, Barman confirmé, Maître d'hôtel, Second, Pâtissier</div>
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--text);margin-bottom:4px">600€</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">par recrutement</div>
+        <div style="font-size:13px;color:var(--text);margin-bottom:12px">Délai moyen : <strong style="color:var(--green)">10 jours</strong></div>
+        <button class="btn btn-green" style="width:100%;justify-content:center;padding:12px;font-size:13px;border-radius:10px" onclick="openDevis('Recrutement Confirmé — 600€')">Déposer une offre →</button>
+      </div>
+      <!-- Direction -->
+      <div class="card" style="padding:32px 24px;display:flex;flex-direction:column;border-radius:16px;text-align:center;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:40px;margin-bottom:12px">👑</div>
+        <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:10px">Direction</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:20px;flex:1">Chef de cuisine, Directeur de salle, Directeur de restaurant</div>
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--text);margin-bottom:4px">1 000€</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">par recrutement</div>
+        <div style="font-size:13px;color:var(--text);margin-bottom:12px">Délai moyen : <strong style="color:var(--green)">14 jours</strong></div>
+        <button class="btn btn-outline" style="width:100%;justify-content:center;padding:12px;font-size:13px;border-radius:10px" onclick="openDevis('Recrutement Direction — 1000€')">Déposer une offre →</button>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:32px;line-height:1.7">Vous ne payez qu'une fois le candidat embauché et sa période d'essai validée.<br>Aucun frais si la mission échoue.</div>
+
+    <!-- Reassurance -->
+    <div style="background:var(--dark);border-radius:12px;padding:32px;text-align:center;margin-bottom:32px">
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:#F7F4EF;line-height:1.5;margin-bottom:8px">Nous connaissons la restauration de l'int&eacute;rieur.</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7">Nous ne cherchons pas juste un CV &mdash; nous cherchons quelqu'un qui restera.</div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-bottom:24px">
+      <div class="section-label" style="font-size:12px;margin-bottom:16px">Questions fr&eacute;quentes</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Vous recrutez pour quel type de poste&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Tous les postes de salle et de cuisine : serveurs, runners, commis, chefs de partie, chefs de rang, barmen, ma&icirc;tres d'h&ocirc;tel, seconds et chefs de cuisine. On est sp&eacute;cialis&eacute;s CHR.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Comment fonctionne la garantie p&eacute;riode d'essai&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Si le candidat part ou est licenci&eacute; pendant sa p&eacute;riode d'essai, on recommence la recherche sans frais suppl&eacute;mentaires.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Je paie quand&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Seulement quand le candidat est embauch&eacute; et a d&eacute;marr&eacute;. Aucun frais si on ne trouve pas.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Combien de candidats me pr&eacute;sentez-vous&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">On s&eacute;lectionne 3 profils qualifi&eacute;s maximum. Pas de CV en vrac &mdash; seulement des candidats qu'on a rencontr&eacute;s et valid&eacute;s.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Et si j'ai besoin de quelqu'un tr&egrave;s vite&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Notre d&eacute;lai moyen est 7 &agrave; 14 jours selon le poste. Pour les urgences, contactez-nous directement au <strong>+33 7 83 47 06 57</strong>.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: COMMUNICATION (R&eacute;seaux Sociaux)
+     ═══════════════════════════════════════════════ -->
+{% if page == 'communication' %}
+<div class="page" style="padding:0;max-width:none">
+  <!-- HERO -->
+  <div style="background:var(--dark);padding:32px 40px 28px;margin:-24px -24px 0;text-align:center">
+    <div style="max-width:680px;margin:0 auto">
+      <div style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:#F7F4EF;line-height:1.3;margin-bottom:14px">Vos clients veulent vous suivre. Donnez-leur une raison.</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;max-width:560px;margin:0 auto">Une pr&eacute;sence pro sur les r&eacute;seaux sans y passer vos soir&eacute;es.</div>
+    </div>
+    <div class="hero-stats" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:720px;margin:36px auto 0">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">2e</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">Instagram est le <strong style="color:rgba(255,255,255,.75)">2e moteur de recherche</strong> pour trouver un restaurant</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">+23%</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">de <strong style="color:rgba(255,255,255,.75)">nouveaux clients</strong> pour les restaurants actifs sur les r&eacute;seaux</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">3h</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">par semaine <strong style="color:rgba(255,255,255,.75)">que vous r&eacute;cup&eacute;rez</strong> en nous confiant vos r&eacute;seaux</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:840px;margin:0 auto;padding:36px 24px 0">
+    <!-- Comparatif -->
+    <div style="background:#0F1F14;border-radius:14px;padding:32px;margin-bottom:32px;overflow-x:auto">
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:20px">POURQUOI PAUCO R&Eacute;SEAUX&nbsp;?</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:480px">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:10px 12px;color:rgba(255,255,255,.5);font-weight:500;border-bottom:1px solid rgba(255,255,255,.1)"></th>
+            <th style="text-align:center;padding:10px 12px;color:rgba(255,255,255,.5);font-weight:500;border-bottom:1px solid rgba(255,255,255,.1)">G&eacute;rer seul</th>
+            <th style="text-align:center;padding:10px 12px;color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.1)">Pauco</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Publications</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Irr&eacute;guli&egrave;res ou jamais</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">3 par semaine, Instagram + Facebook</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Contenu</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Photos de t&eacute;l&eacute;phone</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Contenu pro adapt&eacute; &agrave; votre restaurant</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Stories</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Oubli&eacute;es</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">R&eacute;guli&egrave;res et coh&eacute;rentes</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Commentaires &amp; messages</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Sans r&eacute;ponse</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">R&eacute;ponse sous 24h</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Strat&eacute;gie</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Aucune</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Calendrier &eacute;ditorial mensuel</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7)">R&eacute;sultat</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5)">Compte fant&ocirc;me</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600">Communaut&eacute; active qui revient</td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.6">
+        <strong style="color:#fff">Exemple :</strong> Un restaurant actif sur les r&eacute;seaux g&eacute;n&egrave;re en moyenne +23% de nouveaux clients.<br>
+        <strong style="color:#fff">On s'occupe de tout pour 400&euro;/mois.</strong>
+      </div>
+    </div>
+
+    <!-- Formule unique -->
+    <div class="section-label" style="text-align:center;font-size:12px;margin-bottom:24px">Notre formule</div>
+    <div class="card" style="max-width:600px;margin:0 auto 16px;padding:36px 32px;border-radius:16px;border:2px solid var(--green);text-align:center;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(45,106,74,.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+      <div style="font-size:40px;margin-bottom:12px">&#128241;</div>
+      <div style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:20px">Gestion compl&egrave;te des r&eacute;seaux</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:13px;color:var(--text);line-height:2.2;text-align:left;max-width:440px;margin:0 auto 24px">
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>3 publications/semaine</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Instagram + Facebook</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Stories r&eacute;guli&egrave;res</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>R&eacute;ponses sous 24h</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Calendrier &eacute;ditorial mensuel</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Rapport engagement mensuel</div>
+      </div>
+      <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--text);margin-bottom:4px">400&euro;</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:20px">par mois &middot; Sans engagement</div>
+      <button class="btn btn-green" style="width:100%;justify-content:center;padding:14px;font-size:14px;border-radius:10px" onclick="openDevis('R&eacute;seaux sociaux &mdash; 400&euro;/mois')">Demander un devis &rarr;</button>
+      <div style="font-size:11px;color:var(--dim);margin-top:10px">R&eacute;ponse sous 24h</div>
+    </div>
+
+    <!-- Reassurance -->
+    <div style="background:var(--dark);border-radius:12px;padding:32px;text-align:center;margin-bottom:32px">
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:#F7F4EF;line-height:1.5;margin-bottom:8px">Votre restaurant m&eacute;rite mieux qu'un compte fant&ocirc;me.</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7">On cr&eacute;e une communaut&eacute; qui revient &mdash; pas juste des likes.</div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-bottom:24px">
+      <div class="section-label" style="font-size:12px;margin-bottom:16px">Questions fr&eacute;quentes</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Qui cr&eacute;e le contenu&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Notre &eacute;quipe de community managers sp&eacute;cialis&eacute;s restauration. On vous demande quelques photos de vos plats chaque semaine, on fait le reste.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Vous avez acc&egrave;s &agrave; mon compte Instagram&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Oui, on se connecte &agrave; votre compte existant. Si vous n'en avez pas, on le cr&eacute;e pour vous.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">C'est quoi les premiers r&eacute;sultats&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">D&egrave;s le premier mois : un feed coh&eacute;rent, des stories r&eacute;guli&egrave;res, des r&eacute;ponses &agrave; tous vos messages. Les abonn&eacute;s et l'engagement progressent sur 2 &agrave; 3 mois.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Et si je veux garder la main&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Vous pouvez poster vous-m&ecirc;me quand vous voulez. On coordonne avec vous via un calendrier partag&eacute;.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: PUBLICITE
+     ═══════════════════════════════════════════════ -->
+{% if page == 'publicite' %}
+<div class="page" style="padding:0;max-width:none">
+  <!-- HERO -->
+  <div style="background:var(--dark);padding:32px 40px 28px;margin:-24px -24px 0;text-align:center">
+    <div style="max-width:680px;margin:0 auto">
+      <div style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:#F7F4EF;line-height:1.3;margin-bottom:14px">Vos concurrents vous volent des clients ce soir.</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;max-width:560px;margin:0 auto">73% des clients cherchent un restaurant sur Google avant de venir. Vous apparaissez ?</div>
+    </div>
+    <!-- 3 chiffres choc -->
+    <div class="hero-stats" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:720px;margin:36px auto 0">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">×8</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">retour moyen sur <strong style="color:rgba(255,255,255,.75)">investissement Google Ads</strong> en restauration</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">1er</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">le mieux noté <strong style="color:rgba(255,255,255,.75)">n’est pas toujours</strong> le premier affiché</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:’Fraunces’,serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">&minus;40%</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">de budget <strong style="color:rgba(255,255,255,.75)">gaspill&eacute; en moyenne</strong> par les restaurateurs qui g&egrave;rent leur pub seuls</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:840px;margin:0 auto;padding:36px 24px 0">
+    <!-- Comparatif -->
+    <div style="background:#0F1F14;border-radius:14px;padding:32px;margin-bottom:32px;overflow-x:auto">
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:20px">POURQUOI PAUCO PUB ?</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:480px">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:10px 12px;color:rgba(255,255,255,.5);font-weight:500;border-bottom:1px solid rgba(255,255,255,.1)"></th>
+            <th style="text-align:center;padding:10px 12px;color:rgba(255,255,255,.5);font-weight:500;border-bottom:1px solid rgba(255,255,255,.1)">Gérer seul</th>
+            <th style="text-align:center;padding:10px 12px;color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.1)">Pauco</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Création des campagnes</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">5-10h de formation</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">On s’occupe de tout</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Ciblage</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Générique</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Autour de votre restaurant</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Optimisation</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Jamais ou rarement</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Chaque semaine</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Rapport</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Aucun</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Mensuel, en clair</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7)">Résultat</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5)">Invisible</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600">Premier résultat local</td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.6">
+        <strong style="color:#fff">Exemple :</strong> Un restaurant qui investit 300€/mois capte en moyenne 20 à 30 nouveaux clients.<br>
+        <strong style="color:#fff">Pauco gère tout pour 100€ fixes.</strong>
+      </div>
+    </div>
+
+    <!-- Formule unique -->
+    <div class="section-label" style="text-align:center;font-size:12px;margin-bottom:24px">Notre formule</div>
+    <div class="card" style="max-width:600px;margin:0 auto 16px;padding:36px 32px;border-radius:16px;border:2px solid var(--green);text-align:center;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(45,106,74,.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+      <div style="font-size:40px;margin-bottom:12px">&#128226;</div>
+      <div style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:20px">Gestion publicitaire compl&egrave;te</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:13px;color:var(--text);line-height:2.2;text-align:left;max-width:440px;margin:0 auto 24px">
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Campagnes Google Ads</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Campagnes Meta Ads</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Ciblage autour du restaurant</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Optimisation hebdomadaire</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Rapport mensuel d&eacute;taill&eacute;</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Sans engagement</div>
+      </div>
+      <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--text);margin-bottom:4px">100&euro;</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:6px">par mois &middot; Lancement sous 24h</div>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:20px">Budget pub non inclus &mdash; minimum 100&euro;/mois conseill&eacute;</div>
+      <button class="btn btn-green" style="width:100%;justify-content:center;padding:14px;font-size:14px;border-radius:10px" onclick="openDevis('Publicit&eacute; Google Ads &amp; Meta Ads &mdash; 100&euro;/mois')">Demander un devis &rarr;</button>
+      <div style="font-size:11px;color:var(--dim);margin-top:10px">R&eacute;ponse sous 24h</div>
+    </div>
+
+    <!-- Reassurance -->
+    <div style="background:var(--dark);border-radius:12px;padding:32px;text-align:center;margin-bottom:32px">
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:#F7F4EF;line-height:1.5;margin-bottom:8px">Chaque euro investi doit rapporter.</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7">On ne fait pas de la pub pour le plaisir &mdash; on g&eacute;n&egrave;re des couverts.</div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-bottom:24px">
+      <div class="section-label" style="font-size:12px;margin-bottom:16px">Questions fr&eacute;quentes</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Mon restaurant est d&eacute;j&agrave; bien not&eacute;, j'en ai besoin&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Les avis Google influencent votre classement organique, pas votre position dans les r&eacute;sultats sponsoris&eacute;s. Un concurrent moins bien not&eacute; mais qui fait de la pub appara&icirc;t avant vous. Les deux sont compl&eacute;mentaires.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Quel budget pub pr&eacute;voir&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">On conseille minimum 100&euro;/mois pour avoir des r&eacute;sultats mesurables. La plupart de nos restaurants tournent entre 150&euro; et 300&euro;/mois selon la ville et la saison.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Quand est-ce que je vois les premiers r&eacute;sultats&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Les campagnes sont lanc&eacute;es sous 7 jours. Les premiers clics arrivent d&egrave;s le lancement. Un bilan complet est fait apr&egrave;s 30 jours.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Et si &ccedil;a ne marche pas&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Sans engagement, vous arr&ecirc;tez quand vous voulez. On vous envoie un rapport mensuel avec le nombre de clics, d'appels et l'estimation des couverts g&eacute;n&eacute;r&eacute;s.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: SHOOTING
+     ═══════════════════════════════════════════════ -->
+{% if page == 'shooting' %}
+<div class="page" style="padding:0;max-width:none">
+  <!-- HERO -->
+  <div style="background:var(--dark);padding:32px 40px 28px;margin:-24px -24px 0;text-align:center">
+    <div style="max-width:680px;margin:0 auto">
+      <div style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:#F7F4EF;line-height:1.3;margin-bottom:14px">Vos plats m&eacute;ritent mieux qu'une photo de t&eacute;l&eacute;phone.</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;max-width:560px;margin:0 auto">Un shooting pro pour donner envie avant m&ecirc;me que le client entre.</div>
+    </div>
+    <div class="hero-stats" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:720px;margin:36px auto 0">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">&times;3</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">un menu avec photos <strong style="color:rgba(255,255,255,.75)">vend 3 fois plus</strong> que sans</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">8s</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">temps qu'a un client pour <strong style="color:rgba(255,255,255,.75)">d&eacute;cider de rentrer</strong> ou non</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 16px">
+        <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:700;color:#FFFFFF;margin-bottom:6px">1j</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.6">une seule journ&eacute;e de shooting, <strong style="color:rgba(255,255,255,.75)">des contenus pour toute l'ann&eacute;e</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:840px;margin:0 auto;padding:36px 24px 0">
+    <!-- Comparatif -->
+    <div style="background:#0F1F14;border-radius:14px;padding:32px;margin-bottom:32px;overflow-x:auto">
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:20px">POURQUOI UN SHOOTING PRO&nbsp;?</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:480px">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:10px 12px;color:rgba(255,255,255,.5);font-weight:500;border-bottom:1px solid rgba(255,255,255,.1)"></th>
+            <th style="text-align:center;padding:10px 12px;color:rgba(255,255,255,.5);font-weight:500;border-bottom:1px solid rgba(255,255,255,.1)">Photos t&eacute;l&eacute;phone</th>
+            <th style="text-align:center;padding:10px 12px;color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.1)">Hop_Prod &times; Pauco</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Qualit&eacute;</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Variable, souvent m&eacute;diocre</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Photographe pro CHR</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Lumi&egrave;re</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Naturelle, non ma&icirc;tris&eacute;e</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">&Eacute;clairage studio adapt&eacute;</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Utilisation</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Instagram seulement</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Site, Google, r&eacute;seaux, menus</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Dur&eacute;e de vie</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Quelques semaines</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Toute l'ann&eacute;e</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06)">Mise en sc&egrave;ne</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)">Aucune</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)">Stylisme culinaire inclus</td></tr>
+          <tr><td style="padding:10px 12px;color:rgba(255,255,255,.7)">R&eacute;sultat</td><td style="text-align:center;padding:10px;color:rgba(255,255,255,.5)">Amateur</td><td style="text-align:center;padding:10px;color:#fff;font-weight:600">Identit&eacute; visuelle coh&eacute;rente</td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.6">
+        <strong style="color:#fff">Exemple :</strong> Un restaurateur qui passe &agrave; des photos pro constate en moyenne +40% de clics sur sa fiche Google.<br>
+        <strong style="color:#fff">Un seul shooting, utilis&eacute; partout.</strong>
+      </div>
+    </div>
+
+    <!-- Galerie placeholder -->
+    <!-- Galerie photos -->
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Quelques exemples de notre travail</div>
+      <div style="font-size:13px;color:var(--muted)">Restaurants clients de Pauco</div>
+    </div>
+    {% set shooting_photos = [
+      'A2100117.jpg','A2100127.jpg','A2100164.jpg','A2100525.jpg','A2100529_2.jpg','A2100537.jpg',
+      'A2100567_2.jpg','A2100576_2.jpg','A2100638.jpg','A2100653.jpg','A2100659.jpg','A2104274.jpg',
+      'A2104377_2.jpg','A2104572_2.jpg','A2105765.JPG','A2105769.JPG','A2105959.jpg','A2109335.JPG'
+    ] %}
+    <div id="galerie-shooting" style="margin-bottom:8px">
+      <div class="sg-grid">
+        {% for p in shooting_photos %}
+        <img src="/static/img/shooting/{{ p }}" loading="lazy" alt="Shooting Hop_Prod" onclick="openLb({{ loop.index0 }})">
+        {% endfor %}
+      </div>
+    </div>
+    <div style="text-align:center;font-size:11px;color:var(--dim);margin-bottom:32px">Photos &copy; Hop_Prod</div>
+    <style>
+    .sg-grid{columns:3;column-gap:8px}
+    .sg-grid img{width:100%;display:block;margin-bottom:8px;border-radius:8px;object-fit:cover;cursor:pointer;transition:transform .3s}
+    .sg-grid img:hover{transform:scale(1.02)}
+    .sg-grid img:nth-child(3n+1){height:250px}.sg-grid img:nth-child(3n+2){height:350px}.sg-grid img:nth-child(3n){height:200px}
+    @media(max-width:640px){.sg-grid{columns:2}}
+    .sg-lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;align-items:center;justify-content:center;cursor:pointer}
+    .sg-lb.open{display:flex}
+    .sg-lb img{max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain}
+    .sg-lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;font-size:28px;padding:8px 14px;border-radius:8px;cursor:pointer}
+    .sg-lb-nav:hover{background:rgba(255,255,255,.25)}
+    .sg-lb-close{position:absolute;top:16px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+    </style>
+    <!-- Lightbox -->
+    <div class="sg-lb" id="sg-lb" onclick="if(event.target===this)closeLb()">
+      <button class="sg-lb-close" onclick="closeLb()">&times;</button>
+      <button class="sg-lb-nav" style="left:16px" onclick="event.stopPropagation();navLb(-1)">&lsaquo;</button>
+      <img id="sg-lb-img" src="" alt="">
+      <button class="sg-lb-nav" style="right:16px" onclick="event.stopPropagation();navLb(1)">&rsaquo;</button>
+    </div>
+    <script>
+    (function(){
+      var imgs=document.querySelectorAll('#galerie-shooting .sg-grid img');
+      var urls=[];imgs.forEach(function(i){urls.push(i.src)});
+      var cur=0;
+      window.openLb=function(i){cur=i;document.getElementById('sg-lb-img').src=urls[i];document.getElementById('sg-lb').classList.add('open')};
+      window.closeLb=function(){document.getElementById('sg-lb').classList.remove('open')};
+      window.navLb=function(d){cur=(cur+d+urls.length)%urls.length;document.getElementById('sg-lb-img').src=urls[cur]};
+      document.addEventListener('keydown',function(e){
+        if(!document.getElementById('sg-lb').classList.contains('open'))return;
+        if(e.key==='Escape')closeLb();
+        if(e.key==='ArrowLeft')navLb(-1);
+        if(e.key==='ArrowRight')navLb(1);
+      });
+    })();
+    </script>
+
+    <!-- Formule unique -->
+    <div class="section-label" style="text-align:center;font-size:12px;margin-bottom:24px">Notre formule</div>
+    <div class="card" style="max-width:600px;margin:0 auto 16px;padding:36px 32px;border-radius:16px;border:2px solid var(--green);text-align:center;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(45,106,74,.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+      <div style="font-size:40px;margin-bottom:12px">&#128248;</div>
+      <div style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:20px">Shooting complet</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:13px;color:var(--text);line-height:2.2;text-align:left;max-width:440px;margin:0 auto 24px">
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Photographe pro sp&eacute; restauration</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Stylisme culinaire</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Photos plats + ambiance + &eacute;quipe</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Vid&eacute;o courte format Reels</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Retouches incluses</div>
+        <div><span style="color:var(--green);font-weight:700;margin-right:6px">&#10003;</span>Livraison sous 7 jours</div>
+      </div>
+      <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--text);margin-bottom:4px">799&euro;</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:6px">one shot &middot; Tarif fondateur</div>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:20px">Prestation r&eacute;alis&eacute;e par <a href="https://www.instagram.com/hop_prod/" target="_blank" style="color:var(--dim);text-decoration:underline">@Hop_Prod</a>, partenaire Pauco</div>
+      <button class="btn btn-green" style="width:100%;justify-content:center;padding:14px;font-size:14px;border-radius:10px" onclick="openDevis('Shooting photo &amp; vid&eacute;o &mdash; 799&euro;')">R&eacute;server un shooting &rarr;</button>
+      <div style="font-size:11px;color:var(--dim);margin-top:10px">Disponibilit&eacute;s sous 48h</div>
+    </div>
+
+    <!-- Reassurance -->
+    <div style="background:var(--dark);border-radius:12px;padding:32px;text-align:center;margin:32px 0">
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:#F7F4EF;line-height:1.5;margin-bottom:8px">Un seul shooting. Des contenus pour toute l'ann&eacute;e.</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7">Site, Google, Instagram, menus, flyers &mdash; vous &ecirc;tes propri&eacute;taire de tout.</div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-bottom:24px">
+      <div class="section-label" style="font-size:12px;margin-bottom:16px">Questions fr&eacute;quentes</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Combien de temps dure le shooting&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Une demi-journ&eacute;e en g&eacute;n&eacute;ral, soit 3 &agrave; 4h sur place. On s'adapte &agrave; vos horaires de service.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Combien de photos je re&ccedil;ois&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Entre 40 et 60 photos retouch&eacute;es, livr&eacute;es en haute r&eacute;solution et format web. Plus une vid&eacute;o courte de 30 secondes pour les Reels et Stories.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">Est-ce que je peux utiliser les photos partout&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">Oui, vous &ecirc;tes propri&eacute;taire de tous les visuels. Site web, Google, r&eacute;seaux sociaux, menus, flyers &mdash; aucune restriction.</div>
+        </details>
+        <details class="card" style="border-radius:10px;overflow:hidden">
+          <summary style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between">C'est disponible partout en France&nbsp;?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+          <div style="padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7">On couvre toute la France. Les frais de d&eacute;placement sont inclus dans le tarif pour un rayon de 50km, au-del&agrave; nous consulter.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<!-- ═══════ MODAL DEVIS (commun marketing + recrutement) ═══════ -->
+<div class="modal-bg" id="modal-devis" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal" style="width:480px">
+    <div class="modal-title">Demander un devis gratuit</div>
+    <form id="form-devis" onsubmit="submitDevis(event)">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:12px">
+          <div class="form-group" style="flex:1"><label class="form-label">Prénom</label><input type="text" id="devis-nom" class="form-input" placeholder="Votre prénom" required></div>
+          <div class="form-group" style="flex:1"><label class="form-label">Telephone</label><input type="tel" id="devis-tel" class="form-input" placeholder="06 ..."></div>
+        </div>
+        <div class="form-group"><label class="form-label">Nom du restaurant</label><input type="text" id="devis-resto" class="form-input" placeholder="Ex: Le Bistrot du Port" required></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" id="devis-email" class="form-input" placeholder="votre@email.com" required></div>
+        <div class="form-group"><label class="form-label">Option choisie</label><input type="text" id="devis-option" class="form-input" readonly style="background:var(--bg);color:var(--green);font-weight:600"></div>
+        <div class="form-group"><label class="form-label">Message (optionnel)</label><textarea id="devis-message" class="form-input" rows="3" placeholder="Precisions, questions..."></textarea></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+          <button type="button" class="btn btn-outline" onclick="document.getElementById('modal-devis').classList.remove('open')">Annuler</button>
+          <button type="submit" class="btn btn-green">Envoyer la demande</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+function openDevis(option){
+  document.getElementById('devis-option').value=option;
+  document.getElementById('devis-nom').value='';
+  document.getElementById('devis-tel').value='';
+  document.getElementById('devis-resto').value='{{ restaurant_name|default("Mon Restaurant") }}';
+  document.getElementById('devis-email').value='';
+  document.getElementById('devis-message').value='';
+  document.getElementById('modal-devis').classList.add('open');
+}
+function submitDevis(e){
+  e.preventDefault();
+  var nom=document.getElementById('devis-nom').value;
+  var tel=document.getElementById('devis-tel').value;
+  var resto=document.getElementById('devis-resto').value;
+  var email=document.getElementById('devis-email').value;
+  var option=document.getElementById('devis-option').value;
+  var msg=document.getElementById('devis-message').value;
+  var subject=encodeURIComponent('Demande de devis — '+option+' — '+resto);
+  var body=encodeURIComponent('Prénom : '+nom+'\nTéléphone : '+(tel||'non renseigné')+'\nRestaurant : '+resto+'\nEmail : '+email+'\nOption : '+option+'\n\nMessage :\n'+(msg||'(aucun message)'));
+  window.location.href='mailto:paul@paucoandco.com?subject='+subject+'&body='+body;
+  document.getElementById('modal-devis').classList.remove('open');
+}
+</script>

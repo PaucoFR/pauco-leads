@@ -1,0 +1,1822 @@
+{% set res_style %}
+<style>
+.res-banner{background:var(--dark);color:var(--bg);padding:14px 24px;border-radius:var(--r);margin-bottom:24px;display:flex;align-items:center;gap:10px;font-size:13px}
+.res-banner span{font-size:18px}
+.res-acc{margin-bottom:10px}
+.res-acc-head{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;cursor:pointer;transition:background .15s}
+.res-acc-head:hover{background:var(--bg)}
+.res-acc-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--text)}
+.res-acc-title span.ico{font-size:20px}
+.res-acc-meta{font-size:11px;color:var(--dim);display:flex;align-items:center;gap:6px}
+.res-acc-arrow{font-size:10px;color:var(--dim);transition:transform .2s}
+.res-acc.open .res-acc-arrow{transform:rotate(90deg)}
+.res-acc-body{display:none;padding:0 24px 24px;font-size:13.5px;color:var(--text);line-height:1.85}
+.res-acc.open .res-acc-body{display:block}
+.res-acc-body h3{font-size:14px;font-weight:700;color:var(--dark);margin:20px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.res-acc-body h3:first-child{margin-top:0}
+.res-acc-body p{margin:0 0 12px;color:#3a3530}
+.res-acc-body ul{margin:0 0 12px;padding-left:20px}
+.res-acc-body li{margin-bottom:4px}
+.res-acc-body strong{color:var(--dark)}
+.res-retenir{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px 18px;margin:16px 0;font-size:12.5px;line-height:1.7;color:#166534}
+.res-retenir strong{color:#15803d}
+.res-formula{background:var(--bg);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:var(--green);text-align:center}
+.res-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px}
+.res-table th{background:var(--bg);padding:8px 12px;text-align:left;font-weight:600;border-bottom:2px solid var(--border)}
+.res-table td{padding:8px 12px;border-bottom:1px solid var(--border)}
+.res-table tr:last-child td{border-bottom:none}
+.res-calc{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:18px;margin:16px 0}
+.res-calc label{font-size:12px;font-weight:600;color:var(--text);display:block;margin-bottom:4px}
+.res-calc input{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit;margin-bottom:10px}
+.res-calc-result{background:var(--green-xl);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--green);font-weight:600;margin-top:8px}
+.res-chart-wrap{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0}
+.res-chart-wrap canvas{max-height:220px}
+.res-process{display:flex;gap:0;margin:16px 0;flex-wrap:wrap}
+.res-process-step{flex:1;min-width:100px;text-align:center;padding:12px 8px;position:relative}
+.res-process-step::after{content:'';position:absolute;right:-8px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-left:6px solid var(--green)}
+.res-process-step:last-child::after{display:none}
+.res-process-num{width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 6px}
+.res-process-label{font-size:11px;color:var(--text);font-weight:600;line-height:1.3}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+{% endset %}
+
+{% if page in ('res_gestion','res_rh','res_cuisine','res_ereputation','res_juridique','res_calendrier') %}
+{{ res_style }}
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     GESTION & FINANCES
+     ═══════════════════════════════════════════════════════════ -->
+{% if page == 'res_gestion' %}
+<div class="page">
+  <div class="res-banner"><span>&#128218;</span> Base de connaissances Pauco — Mis a jour mars 2026</div>
+
+  <!-- ARTICLE 1 — RATIOS -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Les 5 ratios cles de la restauration</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 8 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Pourquoi piloter par les ratios</h3>
+      <p>Un restaurant qui realise 40 000 EUR de CA mensuel peut etre deficitaire si ses couts ne sont pas maitrises. Les ratios transforment des montants bruts en pourcentages comparables, mois apres mois, restaurant apres restaurant. Ils sont votre tableau de bord — sans eux, vous naviguez a l'aveugle.</p>
+      <p>En France, la marge nette moyenne d'un restaurant est de <strong>3 a 7%</strong>. Un ecart de 2 points sur le food cost represente, pour un restaurant a 30 000 EUR/mois de CA, une perte annuelle de <strong>7 200 EUR</strong>. Chaque point compte.</p>
+
+      <h3>1. Food Cost (cout matiere alimentaire)</h3>
+      <div class="res-formula">Food Cost = Achats matieres premieres / CA HT x 100</div>
+      <p><strong>Norme : 25% a 35%.</strong> C'est le ratio le plus surveille. Un bistrot traditionnel vise 28-32%. La gastronomie tolere 35-38% grace a un ticket moyen plus eleve. La restauration rapide vise 20-25%. Au-dessus de 35% en cuisine traditionnelle, il y a un probleme : grammages trop genereux, gaspillage, ou prix de vente trop bas.</p>
+      <p><strong>Exemple concret :</strong> Le Bistrot du Coin fait 80 couverts/jour a 25 EUR de ticket moyen, soit 2 000 EUR/jour, 52 000 EUR/mois (26 jours). Ses achats food sont de 16 640 EUR. Son food cost : 16 640 / 52 000 = <strong>32%</strong>. C'est dans la norme haute — marge d'optimisation possible.</p>
+      <p><strong>Comment l'ameliorer :</strong> renegocier les 3 plus gros fournisseurs (souvent 60% des achats), reduire le gaspillage par la methode FIFO, ajuster les grammages de 5-10% (le client ne voit pas la difference entre 180g et 165g de viande), et travailler la saisonnalite des produits (un butternut en novembre coute 40% moins cher qu'en mai).</p>
+
+      <h3>2. Labour Cost (cout du personnel)</h3>
+      <div class="res-formula">Labour Cost = Masse salariale chargee / CA HT x 100</div>
+      <p><strong>Norme : 25% a 40%.</strong> C'est souvent le poste le plus lourd. En France, les charges patronales representent environ 42% du salaire brut. Un salaire brut de 2 000 EUR coute en realite 2 840 EUR a l'employeur. Un restaurant avec service a table vise 30-35%. Un fast-food vise 22-28%.</p>
+      <p><strong>Exemple :</strong> Le Bistrot du Coin emploie 8 personnes pour une masse salariale chargee de 17 680 EUR/mois. Labour cost : 17 680 / 52 000 = <strong>34%</strong>. C'est correct mais a surveiller — un extra en plus ferait basculer au-dessus de 35%.</p>
+
+      <h3>3. Prime Cost</h3>
+      <div class="res-formula">Prime Cost = (Food + Beverage + Labour) / CA HT x 100</div>
+      <p><strong>Norme : 55% a 70%.</strong> C'est l'indicateur roi. Au-dela de 70%, il est quasi impossible de degager un benefice apres loyer, energie, assurances. Le Bistrot du Coin : (16 640 + 2 600 + 17 680) / 52 000 = <strong>71%</strong> — alerte, c'est au-dessus de la norme. Il faut agir sur le food cost OU le labour cost.</p>
+
+      <h3>4. Ratio charges fixes / CA</h3>
+      <div class="res-formula">Charges fixes / CA HT x 100</div>
+      <p><strong>Norme : 20% a 30%.</strong> Loyer (8-12% du CA ideal), energie (3-5%), assurances (1-2%), comptable, logiciels, internet. Si votre loyer depasse 12% du CA, votre local est trop cher pour votre volume d'activite.</p>
+
+      <h3>5. Resultat net</h3>
+      <div class="res-formula">Resultat net = (CA - Total charges) / CA x 100</div>
+      <p><strong>Norme : 5% a 15%.</strong> En-dessous de 5%, la moindre mauvaise surprise (panne de frigo, mois de janvier creux, augmentation du beurre) vous met dans le rouge. Un restaurant sain vise 8-12%.</p>
+
+      <!-- Graphique Chart.js -->
+      <div class="res-chart-wrap">
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px">Repartition type d'un restaurant (CA = 100%)</div>
+        <canvas id="chart-ratios-repartition" height="180"></canvas>
+      </div>
+      <script>
+      document.addEventListener('DOMContentLoaded',function(){
+        var ctx=document.getElementById('chart-ratios-repartition');
+        if(ctx)new Chart(ctx,{type:'doughnut',data:{labels:['Cout matieres (30%)','Cout personnel (34%)','Charges fixes (25%)','Resultat net (11%)'],datasets:[{data:[30,34,25,11],backgroundColor:['#D97706','#1D4ED8','#6B7280','#2D6A4A'],borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{size:11},padding:10}}}}});
+      });
+      </script>
+
+      <!-- Calculateur -->
+      <h3>Calculateur de ratios</h3>
+      <div class="res-calc">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><label>CA mensuel HT (EUR)</label><input type="number" id="rc-ca" value="30000" oninput="calcRatios()"></div>
+          <div><label>Achats food (EUR)</label><input type="number" id="rc-food" value="9000" oninput="calcRatios()"></div>
+          <div><label>Achats boissons (EUR)</label><input type="number" id="rc-bev" value="2000" oninput="calcRatios()"></div>
+          <div><label>Masse salariale chargee (EUR)</label><input type="number" id="rc-labour" value="10500" oninput="calcRatios()"></div>
+          <div><label>Charges fixes (EUR)</label><input type="number" id="rc-fixes" value="7000" oninput="calcRatios()"></div>
+        </div>
+        <div class="res-calc-result" id="rc-result">Cliquez sur un champ pour calculer</div>
+      </div>
+      <script>
+      function calcRatios(){
+        var ca=parseFloat(document.getElementById('rc-ca').value)||1;
+        var food=parseFloat(document.getElementById('rc-food').value)||0;
+        var bev=parseFloat(document.getElementById('rc-bev').value)||0;
+        var lab=parseFloat(document.getElementById('rc-labour').value)||0;
+        var fix=parseFloat(document.getElementById('rc-fixes').value)||0;
+        var fc=Math.round(food/ca*1000)/10;
+        var lc=Math.round(lab/ca*1000)/10;
+        var pc=Math.round((food+bev+lab)/ca*1000)/10;
+        var net=Math.round((ca-food-bev-lab-fix)/ca*1000)/10;
+        var warn=function(v,lo,hi){return v>=lo&&v<=hi?'&#9989;':'&#9888;&#65039;'};
+        document.getElementById('rc-result').innerHTML='Cout matieres : <strong>'+fc+'%</strong> '+warn(fc,25,35)+' | Cout personnel : <strong>'+lc+'%</strong> '+warn(lc,25,40)+' | Charges directes : <strong>'+pc+'%</strong> '+warn(pc,55,70)+' | Resultat net : <strong>'+net+'%</strong> '+warn(net,5,99);
+      }
+      calcRatios();
+      </script>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Food cost entre 25-35%, idealement sous 32%<br>
+        &#8226; Labour cost entre 25-40%, visez 30-34%<br>
+        &#8226; Prime cost sous 65-70% — au-dela, pas de benefice possible<br>
+        &#8226; Resultat net au-dessus de 8% pour etre confortable<br>
+        &#8226; Suivez vos ratios chaque mois dans Pauco, pas une fois par an
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 2 — PRICING -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Comment fixer le prix de vos plats</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>La methode du coefficient multiplicateur</h3>
+      <p>C'est la methode de reference en restauration. Vous calculez le cout matiere de votre plat (fiche technique), puis appliquez un coefficient. Le coefficient varie selon la categorie du plat et le positionnement du restaurant.</p>
+      <div class="res-formula">Prix de vente HT = Cout matiere x Coefficient</div>
+
+      <table class="res-table">
+        <tr><th>Categorie</th><th>Coefficient usuel</th><th>Food cost cible</th><th>Exemple (cout 3EUR)</th></tr>
+        <tr><td>Entrees</td><td>3.5 a 4.5</td><td>22-28%</td><td>10.50 a 13.50 EUR HT</td></tr>
+        <tr><td>Plats</td><td>3.0 a 3.5</td><td>28-33%</td><td>9.00 a 10.50 EUR HT</td></tr>
+        <tr><td>Desserts</td><td>4.0 a 6.0</td><td>17-25%</td><td>12.00 a 18.00 EUR HT</td></tr>
+        <tr><td>Cocktails</td><td>5.0 a 8.0</td><td>12-20%</td><td>15.00 a 24.00 EUR HT</td></tr>
+        <tr><td>Vins (bouteille)</td><td>3.0 a 4.0</td><td>25-33%</td><td>9.00 a 12.00 EUR HT</td></tr>
+      </table>
+
+      <p><strong>Exemple complet :</strong> Votre entrecote grillee coute 7.45 EUR en matieres premieres (viande, garniture, sauce). Coefficient 3.0 → prix HT = 22.35 EUR → prix TTC (10%) = 24.59 EUR → arrondi commercial : <strong>25 EUR</strong>. Food cost : 7.45/22.35 = 33.3%. C'est dans la norme pour un plat viande.</p>
+
+      <h3>La psychologie des prix</h3>
+      <p>Le prix psychologique est le prix maximum que le client accepte pour un plat dans votre type d'etablissement. Trois regles :</p>
+      <ul>
+        <li><strong>L'effet d'ancrage :</strong> le plat le plus cher de la carte (souvent le homard ou le cote de boeuf) fait paraitre tous les autres plats raisonnables. Placez un plat a 38 EUR et votre plat a 25 EUR semblera un bon deal.</li>
+        <li><strong>Le prix en chiffres ronds :</strong> en restauration, les prix en .00 ou .50 fonctionnent mieux que les .99 (contrairement au retail). 25 EUR est percu comme plus honnete que 24.90 EUR.</li>
+        <li><strong>L'ecart carte :</strong> l'ecart entre votre plat le moins cher et le plus cher ne devrait pas depasser un facteur 2.5x. Si votre salade est a 12 EUR et votre cote de boeuf a 45 EUR (3.75x), le client se sentira desoriente.</li>
+      </ul>
+
+      <h3>Equilibrer sa carte — le menu engineering</h3>
+      <p>La methode de Kasavana et Smith classe chaque plat selon sa popularite (nombre de ventes) et sa rentabilite (marge brute en EUR) :</p>
+      <table class="res-table">
+        <tr><th>Categorie</th><th>Popularite</th><th>Marge</th><th>Action</th></tr>
+        <tr><td><strong>Stars</strong></td><td>Haute</td><td>Haute</td><td>Mettre en avant, ne pas toucher au prix</td></tr>
+        <tr><td><strong>Puzzles</strong></td><td>Basse</td><td>Haute</td><td>Ameliorer le nom, la description, la position sur la carte</td></tr>
+        <tr><td><strong>Chevaux</strong></td><td>Haute</td><td>Basse</td><td>Augmenter le prix de 5-8%, ou reduire le grammage</td></tr>
+        <tr><td><strong>Poids morts</strong></td><td>Basse</td><td>Basse</td><td>Retirer de la carte</td></tr>
+      </table>
+
+      <!-- Calculateur prix -->
+      <h3>Calculateur de prix de vente</h3>
+      <div class="res-calc">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div><label>Cout matiere (EUR)</label><input type="number" id="px-cout" value="5.50" step="0.01" oninput="calcPrix()"></div>
+          <div><label>Coefficient</label><input type="number" id="px-coeff" value="3.5" step="0.1" oninput="calcPrix()"></div>
+          <div><label>TVA (%)</label><input type="number" id="px-tva" value="10" oninput="calcPrix()"></div>
+        </div>
+        <div class="res-calc-result" id="px-result"></div>
+      </div>
+      <script>
+      function calcPrix(){
+        var c=parseFloat(document.getElementById('px-cout').value)||0;
+        var k=parseFloat(document.getElementById('px-coeff').value)||1;
+        var t=parseFloat(document.getElementById('px-tva').value)||0;
+        var ht=Math.round(c*k*100)/100;
+        var ttc=Math.round(ht*(1+t/100)*100)/100;
+        var ratio=Math.round(c/ht*1000)/10;
+        var marge=Math.round((ht-c)*100)/100;
+        document.getElementById('px-result').innerHTML='Prix HT : <strong>'+ht.toFixed(2)+'&euro;</strong> | TTC : <strong>'+ttc.toFixed(2)+'&euro;</strong> | Food cost : <strong>'+ratio+'%</strong> | Marge : <strong>'+marge.toFixed(2)+'&euro;</strong>';
+      }
+      calcPrix();
+      </script>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Partez toujours du cout matiere (fiche technique), jamais du feeling<br>
+        &#8226; Coefficient moyen cible : 3.0 a 4.0 selon la categorie<br>
+        &#8226; Etudiez les prix de 5 concurrents dans votre zone<br>
+        &#8226; Un plat "ancre" cher rend les autres plats attractifs<br>
+        &#8226; Retirez les poids morts de la carte tous les trimestres
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 3 — TRESORERIE -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Gerer sa tresorerie en restauration</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Le cycle de tresorerie</h3>
+      <p>La restauration a un avantage structurel : les clients paient comptant (CB, especes). Mais vos charges tombent a dates fixes : loyer le 1er, salaires le 25, fournisseurs a 30 jours, URSSAF trimestrielle. Ce decalage cree des tensions de tresorerie, surtout en mois creux (janvier, fevrier, novembre).</p>
+      <p><strong>Exemple :</strong> En janvier, le Bistrot du Coin fait 35 000 EUR de CA au lieu de 52 000 EUR habituels (-33%). Mais ses charges fixes restent a 24 000 EUR. Resultat : 35 000 - 24 000 - 9 800 (variables) = <strong>1 200 EUR de marge</strong> seulement. Si une reparation de 2 000 EUR survient, c'est le deficit.</p>
+
+      <h3>Le tableau previsionnel mensuel</h3>
+      <p>Construisez un tableau sur 12 mois avec vos previsions de CA (basees sur l'historique) et vos charges previsionnelles. Identifiez les mois ou la tresorerie passe sous zero et anticipez : negociez un echeancier avec le fournisseur, reportez un investissement, ou constituez une reserve en haute saison.</p>
+
+      <!-- Graphique saisonnalite -->
+      <div class="res-chart-wrap">
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px">Saisonnalite type d'un restaurant francais (CA mensuel)</div>
+        <canvas id="chart-saisonnalite" height="180"></canvas>
+      </div>
+      <script>
+      document.addEventListener('DOMContentLoaded',function(){
+        var ctx=document.getElementById('chart-saisonnalite');
+        if(ctx)new Chart(ctx,{type:'bar',data:{labels:['Jan','Fev','Mar','Avr','Mai','Jun','Jul','Aou','Sep','Oct','Nov','Dec'],datasets:[{label:'CA (kEUR)',data:[28,30,38,42,48,52,55,50,48,44,32,45],backgroundColor:function(c){return c.raw<35?'#DC2626':c.raw<45?'#D97706':'#2D6A4A'},borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:function(v){return v+'k'}}}}}});
+      });
+      </script>
+
+      <h3>Les regles d'or</h3>
+      <ul>
+        <li><strong>Reserve de securite :</strong> gardez toujours 2 mois de charges fixes en banque (soit 48 000 EUR pour notre exemple)</li>
+        <li><strong>Surveillez chaque semaine :</strong> pas chaque mois. Un decalage de paiement fournisseur peut creer un trou de 5 000 EUR en 3 jours</li>
+        <li><strong>Negociez vos delais :</strong> demandez 45 jours au lieu de 30 a vos fournisseurs. Ils acceptent souvent pour garder un client regulier</li>
+        <li><strong>Planifiez les investissements :</strong> achetez votre nouveau four en juillet (apres la haute saison), pas en janvier (mois creux)</li>
+        <li><strong>Proposez des formules midi :</strong> elles lissent le CA en semaine et remplissent les tables aux heures creuses</li>
+      </ul>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Janvier-fevrier et novembre sont les mois les plus risques<br>
+        &#8226; Constituez 2 mois de charges fixes en reserve pendant la haute saison<br>
+        &#8226; Surveillez votre tresorerie chaque semaine, pas chaque mois<br>
+        &#8226; Negociez les delais de paiement fournisseurs (45j au lieu de 30j)<br>
+        &#8226; Un tableau previsionnel sur 12 mois evite 80% des surprises
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 4 — SEUIL RENTABILITE -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Seuil de rentabilite : calculez le votre</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Definition</h3>
+      <p>Le seuil de rentabilite (ou point mort) est le CA minimum a partir duquel votre restaurant ne perd plus d'argent. En-dessous, vous etes en deficit. Au-dessus, chaque euro est du benefice. C'est le chiffre le plus important de votre gestion : il vous dit combien vous devez faire par jour pour survivre.</p>
+
+      <h3>La formule</h3>
+      <div class="res-formula">Seuil = Charges fixes / Taux de marge sur couts variables</div>
+      <p>Le taux de marge sur couts variables = (CA - Charges variables) / CA. En restauration, les charges variables sont principalement les matieres premieres (food + boissons) et les extras.</p>
+
+      <h3>Exemple complet</h3>
+      <p>Le Bistrot du Coin :</p>
+      <table class="res-table">
+        <tr><th>Poste</th><th>Montant mensuel</th></tr>
+        <tr><td>Loyer</td><td>3 500 EUR</td></tr>
+        <tr><td>Salaires fixes charges</td><td>17 680 EUR</td></tr>
+        <tr><td>Assurances</td><td>480 EUR</td></tr>
+        <tr><td>Energie</td><td>1 200 EUR</td></tr>
+        <tr><td>Comptable, logiciels, divers</td><td>640 EUR</td></tr>
+        <tr><td><strong>Total charges fixes</strong></td><td><strong>23 500 EUR</strong></td></tr>
+      </table>
+      <p>CA mensuel moyen : 52 000 EUR. Charges variables (matieres) : 19 240 EUR (37% du CA).<br>
+      Taux de marge sur CV : (52 000 - 19 240) / 52 000 = <strong>63%</strong><br>
+      Seuil = 23 500 / 0.63 = <strong>37 302 EUR/mois</strong>, soit <strong>1 435 EUR/jour</strong> (26 jours).</p>
+      <p>Le Bistrot doit faire au minimum 1 435 EUR de CA par jour pour couvrir ses frais. A 25 EUR de ticket moyen, cela represente <strong>58 couverts/jour</strong>.</p>
+
+      <!-- Graphique charges fixes vs variables -->
+      <div class="res-chart-wrap">
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px">Charges fixes vs variables vs benefice (CA croissant)</div>
+        <canvas id="chart-seuil" height="180"></canvas>
+      </div>
+      <script>
+      document.addEventListener('DOMContentLoaded',function(){
+        var ctx=document.getElementById('chart-seuil');
+        if(ctx){
+          var labels=[],cf=[],cv=[],ca=[];
+          for(var i=10;i<=60;i+=5){labels.push(i+'k');cf.push(23.5);cv.push(Math.round(i*0.37*10)/10);ca.push(i)}
+          new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Charges fixes',data:cf,borderColor:'#DC2626',backgroundColor:'rgba(220,38,38,.1)',fill:true,tension:.3,pointRadius:0},{label:'Total charges',data:cf.map(function(v,i){return Math.round((v+cv[i])*10)/10}),borderColor:'#D97706',borderDash:[5,3],tension:.3,pointRadius:0},{label:'CA',data:ca,borderColor:'#2D6A4A',borderWidth:2,tension:.3,pointRadius:0}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:11}}}},scales:{y:{ticks:{callback:function(v){return v+'k EUR'}}}}}});
+        }
+      });
+      </script>
+
+      <!-- Calculateur seuil -->
+      <h3>Calculateur point mort</h3>
+      <div class="res-calc">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div><label>Charges fixes mensuelles (EUR)</label><input type="number" id="sr-fixes" value="23500" oninput="calcSeuil()"></div>
+          <div><label>Taux charges variables (%)</label><input type="number" id="sr-var" value="37" oninput="calcSeuil()"></div>
+          <div><label>Jours d'ouverture / mois</label><input type="number" id="sr-jours" value="26" oninput="calcSeuil()"></div>
+        </div>
+        <div class="res-calc-result" id="sr-result"></div>
+      </div>
+      <script>
+      function calcSeuil(){
+        var fix=parseFloat(document.getElementById('sr-fixes').value)||0;
+        var vp=parseFloat(document.getElementById('sr-var').value)||0;
+        var j=parseFloat(document.getElementById('sr-jours').value)||1;
+        var taux=(100-vp)/100;
+        var seuil=Math.round(fix/taux);
+        var jour=Math.round(seuil/j);
+        document.getElementById('sr-result').innerHTML='Seuil mensuel : <strong>'+seuil.toLocaleString('fr')+'&euro;</strong> | Par jour : <strong>'+jour.toLocaleString('fr')+'&euro;</strong>';
+      }
+      calcSeuil();
+      </script>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Calculez votre seuil et divisez par le nombre de jours d'ouverture<br>
+        &#8226; Affichez l'objectif journalier en cuisine — c'est motivant pour l'equipe<br>
+        &#8226; Reduire les charges fixes de 500 EUR baisse le seuil de ~800 EUR<br>
+        &#8226; Pauco calcule votre seuil automatiquement dans le Tableau de bord
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 5 — ACHATS FOURNISSEURS -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Optimiser ses achats fournisseurs</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>La regle des 80/20</h3>
+      <p>En moyenne, 20% de vos references representent 80% de vos achats. Concentrez vos efforts de negociation sur ces 20%. Pour un restaurant qui depense 15 000 EUR/mois en matieres premieres, les 3 premiers fournisseurs pesent souvent 9 000 a 11 000 EUR. Une remise de 5% sur ces trois-la = <strong>450 a 550 EUR d'economie par mois</strong>, soit 5 400 a 6 600 EUR/an.</p>
+
+      <h3>Comparatif fournisseurs type</h3>
+      <table class="res-table">
+        <tr><th>Fournisseur</th><th>Force</th><th>Faiblesse</th><th>Negociation</th></tr>
+        <tr><td><strong>Metro</strong></td><td>Largeur de gamme, prix stables</td><td>Pas de livraison</td><td>Carte Metro Pro, promos hebdo</td></tr>
+        <tr><td><strong>Sysco</strong></td><td>Livraison, service client</td><td>Minimum de commande</td><td>Remise volume annuel</td></tr>
+        <tr><td><strong>Pomona</strong></td><td>Fruits & legumes frais</td><td>Prix volatils</td><td>Contrat annuel</td></tr>
+        <tr><td><strong>France Boissons</strong></td><td>Boissons, pret materiel</td><td>Exclusivite souvent demandee</td><td>Volume biere/spiritueux</td></tr>
+        <tr><td><strong>Producteurs locaux</strong></td><td>Qualite, storytelling</td><td>Moins fiable en volume</td><td>Engagement annuel</td></tr>
+      </table>
+
+      <h3>Calculateur d'economies</h3>
+      <div class="res-calc">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><label>Achats mensuels (EUR)</label><input type="number" id="ac-total" value="15000" oninput="calcAchats()"></div>
+          <div><label>Remise negociee (%)</label><input type="number" id="ac-remise" value="5" oninput="calcAchats()"></div>
+        </div>
+        <div class="res-calc-result" id="ac-result"></div>
+      </div>
+      <script>
+      function calcAchats(){
+        var t=parseFloat(document.getElementById('ac-total').value)||0;
+        var r=parseFloat(document.getElementById('ac-remise').value)||0;
+        var eco=Math.round(t*r/100);
+        document.getElementById('ac-result').innerHTML='Economie mensuelle : <strong>'+eco.toLocaleString('fr')+'&euro;</strong> | Annuelle : <strong>'+(eco*12).toLocaleString('fr')+'&euro;</strong>';
+      }
+      calcAchats();
+      </script>
+
+      <h3>Saisonnalite des produits</h3>
+      <p>Adapter votre carte aux saisons reduit votre food cost de 3 a 5 points. Les tomates en janvier coutent 2 a 3x plus cher qu'en aout. Le butternut en novembre est 40% moins cher qu'en mai. Les poissons de ligne sont moins chers en ete quand la peche est abondante.</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Concentrez la negociation sur vos 3 plus gros fournisseurs<br>
+        &#8226; Comparez au moins 3 fournisseurs par categorie chaque annee<br>
+        &#8226; 5% de remise sur les achats = 5% de resultat net en plus<br>
+        &#8226; Adaptez la carte aux saisons : economies + qualite + storytelling<br>
+        &#8226; Verifiez chaque facture — les erreurs sont frequentes (5-8% des factures)
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     RH & EQUIPE
+     ═══════════════════════════════════════════════════════════ -->
+{% if page == 'res_rh' %}
+<div class="page">
+  <div class="res-banner"><span>&#128218;</span> Base de connaissances Pauco — Mis a jour mars 2026</div>
+
+  <!-- ARTICLE 1 — CCN HCR -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Convention Collective HCR : grilles et regles</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 8 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>La grille de salaires 2025-2026</h3>
+      <p>La Convention Collective Nationale des Hotels, Cafes, Restaurants (IDCC 1979) fixe les salaires minimaux par niveau et echelon. Ces minimaux sont souvent superieurs au SMIC. Tout salaire inferieur est illegal, meme avec l'accord du salarie.</p>
+      <table class="res-table">
+        <tr><th>Niveau</th><th>Echelon</th><th>Postes types</th><th>Min. brut mensuel</th><th>Cout employeur*</th></tr>
+        <tr><td>I</td><td>1</td><td>Plongeur, commis debutant</td><td>1 802 EUR</td><td>2 559 EUR</td></tr>
+        <tr><td>I</td><td>2</td><td>Commis confirme, runner</td><td>1 820 EUR</td><td>2 584 EUR</td></tr>
+        <tr><td>II</td><td>1</td><td>Serveur, demi-chef</td><td>1 840 EUR</td><td>2 613 EUR</td></tr>
+        <tr><td>II</td><td>2</td><td>Chef de rang</td><td>1 865 EUR</td><td>2 648 EUR</td></tr>
+        <tr><td>III</td><td>1</td><td>Chef de partie, barman</td><td>1 920 EUR</td><td>2 726 EUR</td></tr>
+        <tr><td>III</td><td>2</td><td>Sous-chef, maitre d'hotel</td><td>2 020 EUR</td><td>2 868 EUR</td></tr>
+        <tr><td>IV</td><td>1</td><td>Second de cuisine</td><td>2 100 EUR</td><td>2 982 EUR</td></tr>
+        <tr><td>V</td><td>1</td><td>Chef de cuisine, directeur</td><td>2 400 EUR</td><td>3 408 EUR</td></tr>
+      </table>
+      <p style="font-size:11px;color:var(--dim)">* Cout employeur = brut x 1.42 (charges patronales moyennes HCR)</p>
+
+      <h3>Heures supplementaires en HCR</h3>
+      <p>La duree legale en HCR est de <strong>39h/semaine</strong> (pas 35h). Structure :</p>
+      <ul>
+        <li><strong>35h a 39h :</strong> majoration de 10% (specifique HCR)</li>
+        <li><strong>39h a 43h :</strong> majoration de 20%</li>
+        <li><strong>Au-dela de 43h :</strong> majoration de 50%</li>
+        <li><strong>Maximum legal :</strong> 48h/semaine, 46h en moyenne sur 12 semaines</li>
+      </ul>
+
+      <h3>Avantage en nature — repas</h3>
+      <p>Chaque repas fourni est evalue a <strong>4.15 EUR</strong> (2026). Deduit du salaire net, ajoute a l'assiette de cotisations. Un salarie qui travaille 5j/semaine sur 2 services = 10 repas/mois = 41.50 EUR deduits. Obligation : fournir un repas par service travaille, ou verser une indemnite compensatrice.</p>
+
+      <!-- Graphique repartition masse salariale -->
+      <div class="res-chart-wrap">
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px">Repartition masse salariale type (8 employes)</div>
+        <canvas id="chart-masse-sal" height="180"></canvas>
+      </div>
+      <script>
+      document.addEventListener('DOMContentLoaded',function(){
+        var ctx=document.getElementById('chart-masse-sal');
+        if(ctx)new Chart(ctx,{type:'bar',data:{labels:['Chef cuisine','Second','Chef partie','Serveur 1','Serveur 2','Barman','Commis','Plongeur'],datasets:[{label:'Cout employeur (EUR)',data:[3408,2982,2726,2613,2613,2726,2584,2559],backgroundColor:'#2D6A4A',borderRadius:4}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{callback:function(v){return v.toLocaleString('fr')+'EUR'}}}}}});
+      });
+      </script>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; La duree legale en HCR est 39h/semaine, pas 35h<br>
+        &#8226; Cout reel d'un employe = brut x 1.42 en charges patronales<br>
+        &#8226; L'avantage en nature repas (4.15 EUR) est obligatoire<br>
+        &#8226; Affichez la convention collective dans l'etablissement — c'est obligatoire<br>
+        &#8226; Verifiez la grille annuellement — les minimaux augmentent chaque annee
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 2 — RECRUTEMENT -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Recruter en restauration : le processus complet</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 8 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Le processus en 6 etapes</h3>
+      <div class="res-process">
+        <div class="res-process-step"><div class="res-process-num">1</div><div class="res-process-label">Definir le besoin</div></div>
+        <div class="res-process-step"><div class="res-process-num">2</div><div class="res-process-label">Rediger l'offre</div></div>
+        <div class="res-process-step"><div class="res-process-num">3</div><div class="res-process-label">Publier</div></div>
+        <div class="res-process-step"><div class="res-process-num">4</div><div class="res-process-label">Trier les CVs</div></div>
+        <div class="res-process-step"><div class="res-process-num">5</div><div class="res-process-label">Entretiens + essai</div></div>
+        <div class="res-process-step"><div class="res-process-num">6</div><div class="res-process-label">Onboarding</div></div>
+      </div>
+
+      <h3>Ou trouver des profils</h3>
+      <table class="res-table">
+        <tr><th>Plateforme</th><th>Type de profils</th><th>Cout</th><th>Efficacite</th></tr>
+        <tr><td>Indeed</td><td>Tous niveaux</td><td>Gratuit ou sponsorise</td><td>Volume eleve, beaucoup de tri</td></tr>
+        <tr><td>Hozpitality</td><td>CHR specialise</td><td>Payant</td><td>Profils qualifies</td></tr>
+        <tr><td>L'Hotellerie-Restauration</td><td>Tous niveaux CHR</td><td>Payant</td><td>Reference du secteur</td></tr>
+        <tr><td>LinkedIn</td><td>Encadrement, direction</td><td>Gratuit</td><td>Bon pour les cadres</td></tr>
+        <tr><td>Ecoles hotelieres / CFA</td><td>Apprentis, stagiaires</td><td>Gratuit</td><td>Contact direct</td></tr>
+        <tr><td>Cooptation</td><td>Tous</td><td>Prime 200-500 EUR</td><td>Meilleur taux de retention</td></tr>
+      </table>
+
+      <h3>Rediger une offre qui attire</h3>
+      <p>Les candidats en restauration ont le choix. Votre offre doit se demarquer. Mentionnez obligatoirement : le type de cuisine, la taille de l'equipe, les horaires reels (pas "horaires de restauration"), le salaire (fourchette minimum), les avantages (2 jours de repos consecutifs, repas fournis, mutuelle, pourboires).</p>
+      <p><strong>Mauvais exemple :</strong> "Restaurant cherche serveur. Experience exigee. Remuneration attractive."<br>
+      <strong>Bon exemple :</strong> "Bistrot gastronomique (40 couverts), equipe de 6, cherche serveur/se CDI 39h. Service midi et soir, repos dimanche-lundi. 1 900 EUR brut + pourboires (~200 EUR/mois). Repas fournis, mutuelle. Ambiance familiale."</p>
+
+      <h3>L'entretien : les bonnes questions</h3>
+      <ul>
+        <li>"Racontez-moi un service qui s'est mal passe" — revele la gestion du stress</li>
+        <li>"Pourquoi avez-vous quitte votre dernier poste ?" — red flags : conflits repetes, absences</li>
+        <li>"Comment gerez-vous un client mecontent ?" — test de la posture service</li>
+        <li>"Qu'est-ce que vous aimez cuisiner/servir chez vous ?" — revele la passion</li>
+      </ul>
+      <p><strong>L'essai paye :</strong> proposez systematiquement une demi-journee d'essai payee. Rien ne remplace l'observation en conditions reelles. Prevoyez un binome avec un employe experimente.</p>
+
+      <h3>L'onboarding — les 15 premiers jours</h3>
+      <p>Les 15 premiers jours determinent si le nouveau restera. Prevoyez : visite des locaux (1h), presentation de l'equipe, explication de la carte et des fiches techniques, binome avec un ancien pendant 3 services, point a J+7 et J+15 avec le gerant. Un bon onboarding divise par 3 le taux de depart en periode d'essai.</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Le recrutement moyen prend 47h de travail — externalisez si vous manquez de temps<br>
+        &#8226; La cooptation a le meilleur taux de retention (70% a 1 an vs 40% pour les jobboards)<br>
+        &#8226; Mentionnez le salaire dans l'offre — les candidats ne postulent plus sans<br>
+        &#8226; L'essai paye d'une demi-journee est le meilleur filtre<br>
+        &#8226; Investissez dans l'onboarding — un depart en periode d'essai coute 3 000 a 8 000 EUR
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 3 — CONGES -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Gerer les conges payes en CHR</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 6 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Acquisition et periode de reference</h3>
+      <p>Chaque salarie acquiert <strong>2,5 jours ouvrables</strong> de conges par mois travaille, soit 30 jours (5 semaines) par an. Periode de reference : <strong>1er juin au 31 mai</strong>. Un salarie arrive le 1er janvier acquiert 2.5 x 5 = 12.5 jours au 31 mai.</p>
+
+      <h3>Cas particuliers CHR</h3>
+      <table class="res-table">
+        <tr><th>Situation</th><th>Droits</th></tr>
+        <tr><td>CDD &lt; 1 mois</td><td>Indemnite compensatrice de 10% du salaire brut</td></tr>
+        <tr><td>Extra</td><td>10% de la remuneration brute totale</td></tr>
+        <tr><td>Temps partiel</td><td>Memes droits que le temps plein (2.5j/mois)</td></tr>
+        <tr><td>Apprenti</td><td>2.5j/mois + 5 jours pour revision d'examen</td></tr>
+        <tr><td>Arret maladie</td><td>Pas d'acquisition pendant l'arret (sauf AT/MP)</td></tr>
+      </table>
+
+      <h3>Planifier les conges</h3>
+      <p>En restauration, imposez les conges en basse saison (janvier-fevrier, novembre). Le conge principal (12 jours minimum continus) doit etre pris entre le 1er mai et le 31 octobre. Publiez l'ordre des departs au moins 1 mois a l'avance. Criteres : situation familiale, anciennete, conges du conjoint.</p>
+
+      <h3>Le remplacement</h3>
+      <p>Cout d'un remplacement par extra : environ 130-160 EUR/jour charges pour un serveur. Sur 12 jours de conges, cela represente 1 560 a 1 920 EUR. Budget a prevoir pour chaque employe, chaque annee. Alternative : repartir la charge sur l'equipe restante (fonctionne pour 1-2 absents, pas plus).</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; 2.5 jours/mois, periode 1er juin - 31 mai<br>
+        &#8226; Les extras et CDD ont droit a 10% du brut en indemnite<br>
+        &#8226; Planifiez les CP en basse saison (janvier, fevrier, novembre)<br>
+        &#8226; Budgetez le remplacement : ~150 EUR/jour d'extra par absent<br>
+        &#8226; Pauco calcule les soldes automatiquement dans Conges & Absences
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 4 — MANAGEMENT -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Manager une equipe en restauration</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Le briefing : 5 minutes qui changent tout</h3>
+      <p>Avant chaque service, reunissez l'equipe 5 minutes. Contenu : nombre de reservations, particularites (allergies, anniversaires, VIP), plat du jour et suggestions, repartition des tables, objectif du service ("zero attente au dessert"). Un briefing structure reduit les erreurs de 40% et ameliore la coordination salle-cuisine.</p>
+
+      <h3>Le feedback constructif</h3>
+      <p>Regle d'or : <strong>jamais pendant le service, jamais devant les clients</strong>. Apres le service, prenez le salarie a part. Structure : fait observe ("j'ai vu que la table 4 a attendu 15 min son dessert") → consequence ("le client etait visiblement agace") → solution ("la prochaine fois, previens-moi et je relance la cuisine"). Terminez par un point positif.</p>
+
+      <h3>Motiver sans augmenter</h3>
+      <ul>
+        <li><strong>Reconnaissance quotidienne :</strong> un "merci, bon service" apres le coup de feu vaut plus qu'une prime</li>
+        <li><strong>Planning stable :</strong> publiez 2 semaines a l'avance, respectez les jours de repos</li>
+        <li><strong>Formation :</strong> degustations, stages chez d'autres chefs, formations cocktails</li>
+        <li><strong>Autonomie progressive :</strong> confiez des responsabilites (gestion d'un rang, creation d'un cocktail)</li>
+        <li><strong>Repas d'equipe :</strong> un repas tous ensemble hors service, une fois par mois</li>
+      </ul>
+
+      <h3>Gestion des conflits</h3>
+      <p>Les conflits sont inevitables dans un environnement de stress. Processus : 1) Separer les parties. 2) Ecouter chacun separement. 3) Identifier le fait (pas l'emotion). 4) Proposer une solution avec les deux parties. 5) Suivre dans les 48h. Ne prenez jamais parti publiquement.</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Le briefing avant service est non-negociable — 5 minutes, chaque service<br>
+        &#8226; Feedback = fait + consequence + solution, jamais pendant le service<br>
+        &#8226; Le turnover moyen en restauration est de 70%/an — chaque depart coute 3 000-8 000 EUR<br>
+        &#8226; La reconnaissance quotidienne fidelise plus que les primes<br>
+        &#8226; Publiez le planning 2 semaines a l'avance — c'est la premiere demande des employes
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 5 — OBLIGATIONS LEGALES -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Obligations legales en restauration</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Affichages obligatoires</h3>
+      <p>Tout restaurant doit afficher de facon visible et lisible :</p>
+      <table class="res-table">
+        <tr><th>Document</th><th>Ou</th><th>Sanction si absent</th></tr>
+        <tr><td>Horaires de travail collectifs</td><td>Lieu de travail</td><td>750 EUR / salarie</td></tr>
+        <tr><td>Convention collective HCR (reference)</td><td>Lieu de travail</td><td>750 EUR</td></tr>
+        <tr><td>Inspection du travail (adresse, tel)</td><td>Lieu de travail</td><td>750 EUR</td></tr>
+        <tr><td>Medecine du travail</td><td>Lieu de travail</td><td>750 EUR</td></tr>
+        <tr><td>Consignes incendie + plan d'evacuation</td><td>Chaque etage</td><td>Fermeture possible</td></tr>
+        <tr><td>Interdiction de fumer</td><td>Entree</td><td>68 EUR amende forfaitaire</td></tr>
+        <tr><td>Numeros d'urgence (15/17/18/112)</td><td>Visible</td><td>—</td></tr>
+        <tr><td>DUERP (Document Unique)</td><td>Disponible</td><td>1 500 EUR</td></tr>
+        <tr><td>Egalite professionnelle</td><td>Lieu de travail</td><td>1 500 EUR</td></tr>
+      </table>
+
+      <h3>Le DUERP (Document Unique d'Evaluation des Risques Professionnels)</h3>
+      <p>Obligatoire des le premier salarie. Le DUERP recense tous les risques professionnels de votre etablissement : brulures (cuisine), chutes (sol mouille), coupures, port de charges, stress. Il doit etre mis a jour chaque annee ou apres tout accident. Modeles gratuits disponibles sur le site de l'INRS.</p>
+
+      <h3>Registre unique du personnel</h3>
+      <p>A tenir des le premier employe. Pour chaque salarie : nom, prenom, date de naissance, sexe, nationalite, emploi, qualification, date d'entree et de sortie, type de contrat. Conserve 5 ans apres le depart du salarie. Format papier ou numerique accepte.</p>
+
+      <h3>Les repos obligatoires</h3>
+      <ul>
+        <li><strong>11h consecutives</strong> de repos entre deux journees de travail</li>
+        <li><strong>35h consecutives</strong> de repos hebdomadaire (= 24h + 11h)</li>
+        <li><strong>20 minutes</strong> de pause toutes les 6h de travail</li>
+        <li><strong>2 jours</strong> de repos par semaine (consecutifs ou non en HCR)</li>
+      </ul>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Les affichages manquants = 750 EUR d'amende par document, par salarie<br>
+        &#8226; Le DUERP est obligatoire des le 1er salarie — mettez-le a jour chaque annee<br>
+        &#8226; 11h de repos entre 2 services, 35h de repos hebdomadaire<br>
+        &#8226; Le registre du personnel doit etre a jour en permanence<br>
+        &#8226; Un controle de l'inspection du travail peut arriver sans preavis
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     CUISINE & FICHES
+     ═══════════════════════════════════════════════════════════ -->
+{% if page == 'res_cuisine' %}
+<div class="page">
+  <div class="res-banner"><span>&#128218;</span> Base de connaissances Pauco — Mis a jour mars 2026</div>
+
+  <!-- ARTICLE 1 — ALLERGENES -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Les 14 allergenes obligatoires</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Obligation legale depuis 2015</h3>
+      <p>Le reglement europeen INCO (UE n°1169/2011) oblige tout restaurateur a informer ses clients de la presence des 14 allergenes majeurs. Applicable a la vente sur place, a emporter et en livraison. Sanction : 450 a 1 500 EUR d'amende + responsabilite penale en cas de reaction allergique grave (jusqu'a 2 ans d'emprisonnement si negligence caracterisee).</p>
+
+      <h3>Les 14 allergenes — tableau complet</h3>
+      <table class="res-table">
+        <tr><th>#</th><th>Allergene</th><th>Exemples dans vos plats</th><th>Piege frequent</th></tr>
+        <tr><td>1</td><td><strong>Gluten</strong></td><td>Pain, pates, panure, biere</td><td>Sauce liee a la farine, chapelure</td></tr>
+        <tr><td>2</td><td><strong>Crustaces</strong></td><td>Crevettes, homard, bisque</td><td>Beurre de crustaces, fond de sauce</td></tr>
+        <tr><td>3</td><td><strong>Oeufs</strong></td><td>Mayonnaise, pates, meringue</td><td>Dorure, pate a choux, creme anglaise</td></tr>
+        <tr><td>4</td><td><strong>Poissons</strong></td><td>Saumon, nuoc-mam, surimi</td><td>Worcestershire, gelatine de poisson</td></tr>
+        <tr><td>5</td><td><strong>Arachides</strong></td><td>Huile d'arachide, satay</td><td>Cuisine asiatique, certaines marinades</td></tr>
+        <tr><td>6</td><td><strong>Soja</strong></td><td>Sauce soja, tofu, edamame</td><td>Lecithine E322 dans chocolat industriel</td></tr>
+        <tr><td>7</td><td><strong>Lait</strong></td><td>Beurre, creme, fromage</td><td>Margarine, charcuterie, pain de mie</td></tr>
+        <tr><td>8</td><td><strong>Fruits a coque</strong></td><td>Noix, amandes, pistaches</td><td>Pesto, praline, huile de noix</td></tr>
+        <tr><td>9</td><td><strong>Celeri</strong></td><td>Celeri-rave, sel de celeri</td><td>Bouillons cubes, fonds de sauce</td></tr>
+        <tr><td>10</td><td><strong>Moutarde</strong></td><td>Vinaigrette, curry</td><td>Mayonnaise, sauce bearnaise</td></tr>
+        <tr><td>11</td><td><strong>Sesame</strong></td><td>Graines, tahini, houmous</td><td>Pain burger, boulangerie</td></tr>
+        <tr><td>12</td><td><strong>Sulfites</strong></td><td>Vin, fruits secs, vinaigre</td><td>Seuil >10mg/kg, biere, cidre</td></tr>
+        <tr><td>13</td><td><strong>Lupin</strong></td><td>Farine de lupin</td><td>Pain, patisserie industrielle</td></tr>
+        <tr><td>14</td><td><strong>Mollusques</strong></td><td>Moules, calmars, escargots</td><td>Sauce huitre, encre de seiche</td></tr>
+      </table>
+
+      <h3>Comment les afficher</h3>
+      <p>Trois options legales : 1) Pictogrammes sur la carte a cote de chaque plat. 2) Tableau recapitulatif affiche en salle. 3) Mention "Allergenes : renseignez-vous aupres du personnel" avec registre consultable. La meilleure pratique : pictogrammes sur la carte + registre detaille en cuisine.</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; 14 allergenes a declarer — obligation legale, pas une option<br>
+        &#8226; Formez TOUTE l'equipe — un serveur doit repondre instantanement<br>
+        &#8226; Attention aux allergenes caches (bouillons, sauces industrielles)<br>
+        &#8226; Mettez a jour le tableau a chaque changement de carte<br>
+        &#8226; Un incident allergique engage votre responsabilite penale
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 2 — FICHES TECHNIQUES -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Creer des fiches techniques efficaces</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Pourquoi c'est indispensable</h3>
+      <p>Sans fiche technique, votre food cost est imprevisible. Chaque cuisinier prepare le meme plat differemment — grammages variables, gout inconsistant, cout qui fluctue de 15-20% d'un service a l'autre. La fiche technique est le garant de la constance pour vos clients et vos finances.</p>
+
+      <h3>Structure d'une fiche reussie</h3>
+      <div class="res-process">
+        <div class="res-process-step"><div class="res-process-num">1</div><div class="res-process-label">Nom + categorie</div></div>
+        <div class="res-process-step"><div class="res-process-num">2</div><div class="res-process-label">Ingredients + grammages</div></div>
+        <div class="res-process-step"><div class="res-process-num">3</div><div class="res-process-label">Cout matiere</div></div>
+        <div class="res-process-step"><div class="res-process-num">4</div><div class="res-process-label">Prix + coefficient</div></div>
+        <div class="res-process-step"><div class="res-process-num">5</div><div class="res-process-label">Mode operatoire</div></div>
+      </div>
+
+      <p><strong>Exemple concret :</strong> Votre risotto aux champignons pour 1 portion :</p>
+      <table class="res-table">
+        <tr><th>Ingredient</th><th>Prix/kg</th><th>Quantite</th><th>Cout</th></tr>
+        <tr><td>Riz arborio</td><td>4.50 EUR</td><td>120g</td><td>0.54 EUR</td></tr>
+        <tr><td>Champignons de Paris</td><td>8.00 EUR</td><td>150g</td><td>1.20 EUR</td></tr>
+        <tr><td>Parmesan</td><td>22.00 EUR</td><td>30g</td><td>0.66 EUR</td></tr>
+        <tr><td>Beurre</td><td>10.00 EUR</td><td>20g</td><td>0.20 EUR</td></tr>
+        <tr><td>Bouillon</td><td>2.00 EUR</td><td>300ml</td><td>0.60 EUR</td></tr>
+        <tr><td>Echalote</td><td>5.00 EUR</td><td>20g</td><td>0.10 EUR</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td></td><td></td><td><strong>3.30 EUR</strong></td></tr>
+      </table>
+      <p>Avec un coefficient de 4.2 → prix HT = 13.86 EUR → TTC = 15.25 EUR → arrondi : <strong>15 EUR</strong>. Food cost : 3.30/13.86 = 23.8% — excellent.</p>
+
+      <!-- Calculateur marge par plat -->
+      <h3>Calculateur marge par plat</h3>
+      <div class="res-calc">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div><label>Cout matiere (EUR)</label><input type="number" id="ft-cout" value="3.30" step="0.01" oninput="calcFTMarge()"></div>
+          <div><label>Prix vente TTC (EUR)</label><input type="number" id="ft-pvttc" value="15" step="0.50" oninput="calcFTMarge()"></div>
+          <div><label>Couverts / mois</label><input type="number" id="ft-couv" value="120" oninput="calcFTMarge()"></div>
+        </div>
+        <div class="res-calc-result" id="ft-result"></div>
+      </div>
+      <script>
+      function calcFTMarge(){
+        var c=parseFloat(document.getElementById('ft-cout').value)||0;
+        var ttc=parseFloat(document.getElementById('ft-pvttc').value)||0;
+        var couv=parseFloat(document.getElementById('ft-couv').value)||0;
+        var ht=Math.round(ttc/1.10*100)/100;
+        var marge=Math.round((ht-c)*100)/100;
+        var ratio=ht>0?Math.round(c/ht*1000)/10:0;
+        var mensuel=Math.round(marge*couv*100)/100;
+        document.getElementById('ft-result').innerHTML='Marge/plat : <strong>'+marge.toFixed(2)+'&euro;</strong> | Food cost : <strong>'+ratio+'%</strong> | Marge mensuelle ('+couv+' ventes) : <strong>'+mensuel.toLocaleString('fr')+'&euro;</strong>';
+      }
+      calcFTMarge();
+      </script>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Chaque plat de la carte doit avoir sa fiche technique<br>
+        &#8226; Pesez les ingredients au gramme pres lors de la creation<br>
+        &#8226; Mettez a jour les prix fournisseurs chaque trimestre<br>
+        &#8226; Utilisez Pauco Fiches Food pour calculer automatiquement cout, coefficient et marge<br>
+        &#8226; Formez les commis avec les fiches — c'est le meilleur outil de standardisation
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 3 — GASPILLAGE -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Reduire le gaspillage alimentaire</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>L'impact financier</h3>
+      <p>Un restaurant francais jette en moyenne <strong>14% de ses achats alimentaires</strong>. Pour un restaurant qui depense 15 000 EUR/mois en matieres premieres, cela represente <strong>2 100 EUR/mois jetes</strong>, soit <strong>25 200 EUR/an</strong>. Reduire le gaspillage de 14% a 7%, c'est recuperer 12 600 EUR/an — l'equivalent d'un demi salaire.</p>
+
+      <!-- Graphique impact -->
+      <div class="res-chart-wrap">
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px">Impact du gaspillage sur le food cost (achats 15kEUR/mois)</div>
+        <canvas id="chart-gaspillage" height="160"></canvas>
+      </div>
+      <script>
+      document.addEventListener('DOMContentLoaded',function(){
+        var ctx=document.getElementById('chart-gaspillage');
+        if(ctx)new Chart(ctx,{type:'bar',data:{labels:['14% gaspillage (moyenne)','10% (ameliore)','7% (optimise)','3% (excellence)'],datasets:[{label:'Pertes annuelles (EUR)',data:[25200,18000,12600,5400],backgroundColor:['#DC2626','#D97706','#D97706','#2D6A4A'],borderRadius:4}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{callback:function(v){return v.toLocaleString('fr')+' EUR'}}}}}});
+      });
+      </script>
+
+      <h3>Les causes principales</h3>
+      <ul>
+        <li><strong>Surproduction :</strong> trop de mises en place pour le nombre reel de couverts</li>
+        <li><strong>DLC depassees :</strong> produits oublies au fond du frigo</li>
+        <li><strong>Grammages excessifs :</strong> les clients ne finissent pas leur assiette</li>
+        <li><strong>Erreurs de commande :</strong> plats refaits en cuisine</li>
+        <li><strong>Carte trop large :</strong> trop de references = trop de stock = trop de pertes</li>
+      </ul>
+
+      <h3>Solutions concretes</h3>
+      <ul>
+        <li><strong>FIFO (First In First Out) :</strong> les produits recus en premier sont utilises en premier. Marquez les dates de reception au marqueur</li>
+        <li><strong>Plat du jour :</strong> utilisez les surplus du jour precedent avant peremption</li>
+        <li><strong>Carte courte :</strong> 8-12 plats maximum reduisent les references et les pertes de 30%</li>
+        <li><strong>Mise en place calibree :</strong> basez-vous sur l'historique de CA par jour de la semaine</li>
+        <li><strong>Doggy bag :</strong> obligatoire depuis 2021 pour les restaurants >200 couverts/jour</li>
+      </ul>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; 14% de gaspillage = 25 000 EUR/an jetes pour un restaurant moyen<br>
+        &#8226; FIFO + plat du jour + carte courte = les 3 actions les plus efficaces<br>
+        &#8226; Mesurez vos pertes chaque semaine (pesez les poubelles)<br>
+        &#8226; Objectif : passer sous 7% de pertes en 6 mois<br>
+        &#8226; Le doggy bag est obligatoire — proposez-le systematiquement
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 4 — TVA -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">TVA en restauration : le guide complet</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 6 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Les 3 taux applicables</h3>
+      <table class="res-table">
+        <tr><th>Taux</th><th>S'applique a</th><th>Exemples</th></tr>
+        <tr><td><strong>10%</strong></td><td>Vente sur place + a emporter chaud</td><td>Plats, entrees, desserts, sodas sur place, pizza a emporter chaude</td></tr>
+        <tr><td><strong>5.5%</strong></td><td>A emporter froid (consommation differee)</td><td>Sandwich froid, salade emballee, patisserie emportee</td></tr>
+        <tr><td><strong>20%</strong></td><td>Boissons alcoolisees (partout)</td><td>Vin, biere, cocktails, spiritueux — sur place OU a emporter</td></tr>
+      </table>
+
+      <h3>Impact sur vos fiches techniques</h3>
+      <p><strong>Erreur frequente :</strong> calculer la marge d'un cocktail avec la TVA a 10% au lieu de 20%. Un cocktail vendu 12 EUR TTC : en TVA 10% → HT = 10.91 EUR. En TVA 20% (correct) → HT = 10.00 EUR. Difference : <strong>0.91 EUR de marge fictive par cocktail</strong>. Sur 50 cocktails/semaine, c'est 2 366 EUR de marge fantome par an.</p>
+
+      <h3>Cas des menus avec boisson alcoolisee</h3>
+      <p>Si un menu a 25 EUR inclut un verre de vin, la TVA doit etre ventilee. Methode : decomposez le prix du menu en part nourriture (TVA 10%) et part alcool (TVA 20%). Le ticket de caisse doit refleter cette ventilation. En pratique : "Menu 25 EUR dont 4 EUR boisson alcoolisee" → 21 EUR a 10% + 4 EUR a 20%.</p>
+
+      <!-- Calculateur TVA -->
+      <h3>Calculateur HT/TTC</h3>
+      <div class="res-calc">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><label>Prix TTC (EUR)</label><input type="number" id="tva-ttc" value="25" step="0.50" oninput="calcTVA()"></div>
+          <div><label>Taux TVA (%)</label>
+            <select id="tva-taux" class="form-input" onchange="calcTVA()" style="padding:8px 10px;font-size:13px">
+              <option value="10">10% — sur place / emporter chaud</option>
+              <option value="5.5">5.5% — emporter froid</option>
+              <option value="20">20% — boissons alcoolisees</option>
+            </select>
+          </div>
+        </div>
+        <div class="res-calc-result" id="tva-result"></div>
+      </div>
+      <script>
+      function calcTVA(){
+        var ttc=parseFloat(document.getElementById('tva-ttc').value)||0;
+        var taux=parseFloat(document.getElementById('tva-taux').value)||10;
+        var ht=Math.round(ttc/(1+taux/100)*100)/100;
+        var tva=Math.round((ttc-ht)*100)/100;
+        document.getElementById('tva-result').innerHTML='Prix HT : <strong>'+ht.toFixed(2)+'&euro;</strong> | TVA ('+taux+'%) : <strong>'+tva.toFixed(2)+'&euro;</strong>';
+      }
+      calcTVA();
+      </script>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Nourriture sur place = 10%, alcool = toujours 20%, emporter froid = 5.5%<br>
+        &#8226; Calculez TOUJOURS vos ratios en HT, affichez en TTC<br>
+        &#8226; Attention aux cocktails : TVA 20% change significativement la marge<br>
+        &#8226; Les menus avec alcool doivent ventiler la TVA sur le ticket
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     E-REPUTATION
+     ═══════════════════════════════════════════════════════════ -->
+{% if page == 'res_ereputation' %}
+<div class="page">
+  <div class="res-banner"><span>&#128218;</span> Base de connaissances Pauco — Mis a jour mars 2026</div>
+
+  <!-- ARTICLE 1 — AVIS GOOGLE -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Avis Google : algorithme, SEO local et impact</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 8 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Comment Google classe les restaurants</h3>
+      <p>Quand un client cherche "restaurant italien Biarritz" sur Google Maps, l'algorithme utilise 3 facteurs principaux : <strong>la pertinence</strong> (votre fiche mentionne-t-elle "italien" ?), <strong>la distance</strong> (etes-vous proche de l'utilisateur ?), et <strong>la prominance</strong> (note, nombre d'avis, frequence des avis, taux de reponse). Vous ne pouvez pas changer votre distance, mais vous pouvez agir sur la pertinence et la prominance.</p>
+
+      <h3>Les chiffres qui comptent</h3>
+      <ul>
+        <li><strong>89%</strong> des consommateurs lisent les reponses du proprietaire (BrightLocal 2024)</li>
+        <li>Les restaurants qui repondent a 90%+ des avis ont <strong>35% de clics en plus</strong></li>
+        <li><strong>45%</strong> des consommateurs visitent un restaurant qui repond aux avis negatifs</li>
+        <li>Le delai ideal de reponse est <strong>24-48h</strong></li>
+        <li>Un restaurant a 4.0 avec 500 avis attire plus qu'un 4.8 avec 20 avis</li>
+      </ul>
+
+      <h3>Les mots-cles a integrer</h3>
+      <p>Dans vos reponses, utilisez naturellement : le nom de votre restaurant, votre specialite ("cuisine bistronomique", "cocktails maison"), votre localisation ("au coeur du Vieux-Port"). Ces mots-cles renforcent votre referencement. Exemple : "Merci Sophie pour votre visite au <strong>Bistrot du Coin</strong> ! Nous sommes ravis que notre <strong>cuisine de marche</strong> a <strong>Biarritz</strong> vous ait plu."</p>
+
+      <!-- Graphique impact reponses -->
+      <div class="res-chart-wrap">
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px">Impact du taux de reponse sur les clics (etude 500 restaurants)</div>
+        <canvas id="chart-avis-impact" height="160"></canvas>
+      </div>
+      <script>
+      document.addEventListener('DOMContentLoaded',function(){
+        var ctx=document.getElementById('chart-avis-impact');
+        if(ctx)new Chart(ctx,{type:'line',data:{labels:['0%','20%','40%','60%','80%','100%'],datasets:[{label:'Clics fiche Google (+%)',data:[0,8,15,22,30,35],borderColor:'#2D6A4A',backgroundColor:'rgba(45,106,74,.1)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#2D6A4A'}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'Taux de reponse aux avis'}},y:{title:{display:true,text:'Augmentation des clics'},ticks:{callback:function(v){return'+'+v+'%'}}}}}});
+      });
+      </script>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Repondez a 100% des avis — c'est un facteur de classement Google<br>
+        &#8226; Integrez vos mots-cles (nom, specialite, ville) dans chaque reponse<br>
+        &#8226; Le volume d'avis compte autant que la note moyenne<br>
+        &#8226; Repondez sous 24-48h — au-dela l'impact diminue<br>
+        &#8226; 10 minutes chaque matin suffisent pour repondre aux avis de la veille
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 2 — AVIS NEGATIFS -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Repondre a un avis negatif : methode et exemples</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>La methode des 3C</h3>
+      <p><strong>Comprendre</strong> — Montrez que vous avez lu et compris. Reformulez le probleme. Ne minimisez jamais.<br>
+      <strong>Compenser</strong> — Proposez une solution concrete : invitation, geste commercial, correction.<br>
+      <strong>Conclure</strong> — Note positive, invitation a revenir, coordonnees directes.</p>
+
+      <h3>Exemples avant/apres</h3>
+      <table class="res-table">
+        <tr><th>Situation</th><th>Mauvaise reponse</th><th>Bonne reponse</th></tr>
+        <tr><td>Service lent</td><td>"Nous etions complets, c'est normal."</td><td>"Je comprends votre frustration concernant l'attente. Nous avions un afflux inhabituel ce soir-la. Nous avons depuis renforce l'equipe le week-end. J'aimerais vous inviter pour vous montrer notre service habituel."</td></tr>
+        <tr><td>Plat froid</td><td>"Ce n'est pas possible, nos plats sont toujours chauds."</td><td>"Je suis desole que votre plat n'ait pas ete servi a bonne temperature. C'est inacceptable et nous avons revu notre procedure d'envoi avec l'equipe. Contactez-nous a paul@bistrot.com pour une prochaine visite."</td></tr>
+        <tr><td>Addition elevee</td><td>"Nos prix sont justifies."</td><td>"Merci pour votre retour. Nos prix refletent la qualite de nos produits frais et locaux. Notre formule dejeuner a 18 EUR offre un excellent rapport qualite-prix — nous serions ravis de vous la faire decouvrir."</td></tr>
+      </table>
+
+      <h3>Ce qu'il ne faut JAMAIS faire</h3>
+      <ul>
+        <li>Nier le probleme</li>
+        <li>Accuser ou blamer le client</li>
+        <li>Etre sarcastique ou passif-agressif</li>
+        <li>Copier-coller la meme reponse pour tous</li>
+        <li>Ignorer l'avis — le silence est la pire reponse</li>
+        <li>Repondre sous le coup de la colere — attendez le lendemain matin</li>
+      </ul>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Comprendre → Compenser → Conclure — dans cet ordre<br>
+        &#8226; Un avis negatif bien gere rassure les clients potentiels qui le lisent<br>
+        &#8226; Ne repondez jamais sous l'emotion — attendez 12h minimum<br>
+        &#8226; Personnalisez chaque reponse — le copier-coller se voit<br>
+        &#8226; Proposez systematiquement un contact direct (email, tel)
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 3 — AUGMENTER SA NOTE -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Strategie 6 mois pour augmenter sa note Google</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Le plan d'action concret</h3>
+      <table class="res-table">
+        <tr><th>Mois</th><th>Action</th><th>Resultat attendu</th></tr>
+        <tr><td>Mois 1</td><td>QR code sur l'addition + formation equipe</td><td>+15 avis/mois</td></tr>
+        <tr><td>Mois 2</td><td>SMS de suivi post-visite (si emails collectes)</td><td>+20 avis/mois</td></tr>
+        <tr><td>Mois 3</td><td>Repondre a 100% des avis, anciens inclus</td><td>+10% de clics fiche</td></tr>
+        <tr><td>Mois 4</td><td>Photos pro de la carte mises a jour</td><td>+15% d'engagement</td></tr>
+        <tr><td>Mois 5</td><td>Google Posts hebdomadaires (plat du jour, events)</td><td>+5% de visibilite</td></tr>
+        <tr><td>Mois 6</td><td>Analyser et ajuster — focus sur les retours negatifs recurrents</td><td>Note +0.2 a +0.4 points</td></tr>
+      </table>
+
+      <h3>Le QR code — comment le faire</h3>
+      <p>Allez sur votre fiche Google Business → "Partager" → copiez le lien "Demander des avis". Generez un QR code gratuit (qr-code-generator.com). Imprimez-le sur un chevalet de table, sur l'addition, ou sur une carte de visite. Le client scanne et arrive directement sur le formulaire d'avis. Taux de conversion : 8-15%.</p>
+
+      <h3>Volume vs Note moyenne</h3>
+      <p>Un restaurant avec 500 avis a 4.3 inspire plus confiance qu'un 4.8 avec 20 avis. Le volume est un signal de fiabilite pour Google ET pour les clients. Objectif : 10-15 nouveaux avis par mois. A ce rythme, en 6 mois vous ajoutez 60-90 avis — assez pour diluer les anciens avis negatifs et gagner 0.2 a 0.4 points de note.</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Le QR code sur l'addition est l'action #1 a mettre en place<br>
+        &#8226; Visez 10-15 nouveaux avis par mois<br>
+        &#8226; Ne demandez jamais de faux avis — Google detecte et penalise<br>
+        &#8226; Resultat attendu en 6 mois : +0.2 a +0.4 points de note<br>
+        &#8226; Formez vos serveurs : "Si vous avez passe un bon moment, un avis Google nous aiderait"
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 4 — TRIPADVISOR VS GOOGLE -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">TripAdvisor vs Google : quelle strategie</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 6 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Comparatif detaille</h3>
+      <table class="res-table">
+        <tr><th>Critere</th><th>Google</th><th>TripAdvisor</th></tr>
+        <tr><td>Audience</td><td>Locaux + visiteurs spontanes</td><td>Touristes qui planifient</td></tr>
+        <tr><td>Part de marche</td><td>~80% des recherches resto</td><td>~15%</td></tr>
+        <tr><td>Impact SEO</td><td>Direct (Maps, Search)</td><td>Indirect</td></tr>
+        <tr><td>Cout</td><td>Gratuit</td><td>Gratuit (premium payant)</td></tr>
+        <tr><td>Photos</td><td>Tres important</td><td>Important</td></tr>
+        <tr><td>Reponse aux avis</td><td>Facteur de classement</td><td>Bonne pratique</td></tr>
+        <tr><td>Zone touristique</td><td>Indispensable</td><td>Indispensable</td></tr>
+        <tr><td>Zone urbaine/locale</td><td>Indispensable</td><td>Secondaire</td></tr>
+      </table>
+
+      <h3>Strategie recommandee</h3>
+      <p><strong>Priorite #1 : Google.</strong> 80% de vos efforts doivent aller sur Google. C'est la ou le volume est, et c'est la ou l'impact SEO est direct. Mettez a jour vos photos chaque trimestre, repondez a 100% des avis, et utilisez Google Posts.</p>
+      <p><strong>Priorite #2 : TripAdvisor</strong> si vous etes en zone touristique. Revendiquez votre page, ajoutez un menu PDF, selectionnez les bonnes categories, et repondez aux avis. En zone urbaine non touristique, TripAdvisor est un bonus, pas une necessite.</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Google = 80% de vos efforts, TripAdvisor = 20%<br>
+        &#8226; En zone touristique, les deux sont indispensables<br>
+        &#8226; En zone urbaine, concentrez-vous sur Google<br>
+        &#8226; Photos a jour + reponses aux avis = les 2 actions prioritaires partout
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     JURIDIQUE & LEGAL
+     ═══════════════════════════════════════════════════════════ -->
+{% if page == 'res_juridique' %}
+<div class="page">
+  <div class="res-banner"><span>&#128218;</span> Base de connaissances Pauco — Mis a jour mars 2026</div>
+
+  <!-- ARTICLE 1 — LICENCES -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Les licences en restauration</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 7 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Les 4 types de licences</h3>
+      <table class="res-table">
+        <tr><th>Licence</th><th>Permet de vendre</th><th>Demarche</th><th>Cout moyen</th></tr>
+        <tr><td><strong>Petite licence restaurant</strong></td><td>Vin, biere, cidre en accompagnement d'un repas</td><td>Declaration mairie</td><td>Gratuit</td></tr>
+        <tr><td><strong>Licence restaurant</strong></td><td>Toutes boissons avec repas</td><td>Declaration + permis exploitation</td><td>400-700 EUR (formation)</td></tr>
+        <tr><td><strong>Licence III</strong></td><td>Boissons gr. 1-3 sans repas</td><td>Declaration + permis</td><td>400-700 EUR</td></tr>
+        <tr><td><strong>Licence IV</strong></td><td>Toutes boissons y compris spiritueux sans repas</td><td>Rachat + permis</td><td>5 000-30 000+ EUR</td></tr>
+      </table>
+
+      <h3>Licence IV — un bien rare</h3>
+      <p>Plus aucune creation de licence IV depuis 1941. Elles se transmettent par rachat ou transfert dans la meme commune. Prix : 5 000 EUR en zone rurale a 30 000 EUR+ a Paris. La licence est attachee a la personne, pas au local. En cas de vente du fonds de commerce, elle doit etre transferee explicitement. Attention : une licence IV non exploitee pendant 3 ans est perdue definitivement.</p>
+
+      <h3>Le permis d'exploitation</h3>
+      <p>Formation de <strong>20h</strong> (premiere demande) ou <strong>6h</strong> (renouvellement tous les 10 ans). Contenu : obligations legales, prevention alcoolisme, protection des mineurs, lutte contre le bruit. Organismes agrees : CCI, UMIH, syndicats professionnels. Prevoyez 3 mois avant l'ouverture.</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Sans licence, servir de l'alcool = fermeture administrative + 3 750 EUR d'amende<br>
+        &#8226; Le permis d'exploitation est obligatoire et valable 10 ans<br>
+        &#8226; Une licence IV non utilisee 3 ans est perdue<br>
+        &#8226; Prevoyez 3 mois pour les demarches avant ouverture
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 2 — DEMARCHES OUVERTURE -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Ouvrir un restaurant : checklist complete</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 8 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Chronologie des demarches</h3>
+      <div class="res-process">
+        <div class="res-process-step"><div class="res-process-num">1</div><div class="res-process-label">Business plan<br><span style="font-size:9px;color:var(--dim)">M-6</span></div></div>
+        <div class="res-process-step"><div class="res-process-num">2</div><div class="res-process-label">Local + bail<br><span style="font-size:9px;color:var(--dim)">M-5</span></div></div>
+        <div class="res-process-step"><div class="res-process-num">3</div><div class="res-process-label">Statut juridique<br><span style="font-size:9px;color:var(--dim)">M-4</span></div></div>
+        <div class="res-process-step"><div class="res-process-num">4</div><div class="res-process-label">Licences + permis<br><span style="font-size:9px;color:var(--dim)">M-3</span></div></div>
+        <div class="res-process-step"><div class="res-process-num">5</div><div class="res-process-label">Travaux + ERP<br><span style="font-size:9px;color:var(--dim)">M-2</span></div></div>
+        <div class="res-process-step"><div class="res-process-num">6</div><div class="res-process-label">Recrutement<br><span style="font-size:9px;color:var(--dim)">M-1</span></div></div>
+      </div>
+
+      <h3>Choix du statut juridique</h3>
+      <table class="res-table">
+        <tr><th>Statut</th><th>Associes</th><th>Capital</th><th>Charges sociales</th><th>Ideal pour</th></tr>
+        <tr><td><strong>SARL</strong></td><td>2 minimum (EURL: 1)</td><td>Libre</td><td>~45% du salaire</td><td>La majorite des restaurants</td></tr>
+        <tr><td><strong>SAS</strong></td><td>1 minimum</td><td>Libre</td><td>~65% du salaire</td><td>Investisseurs, levee de fonds</td></tr>
+        <tr><td><strong>Auto-entrepreneur</strong></td><td>1</td><td>0</td><td>~22% du CA</td><td>Food truck, petit traiteur</td></tr>
+      </table>
+
+      <h3>Normes ERP (5e categorie)</h3>
+      <p>Un restaurant de moins de 200 personnes est classe ERP 5e categorie (type N). Obligations : extincteurs (1 pour 200m2 minimum), alarme incendie, eclairage de securite, plan d'evacuation, accessibilite PMR (rampe, sanitaires adaptes). La commission de securite peut inspecter avant l'ouverture.</p>
+
+      <h3>Declaration sanitaire</h3>
+      <p>A deposer aupres de la DDPP (Direction Departementale de la Protection des Populations) au moins 15 jours avant l'ouverture. Formulaire CERFA n°13984. Gratuit. Sans cette declaration, un controle sanitaire peut entrainer une fermeture immediate.</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Prevoyez 6 mois de demarches minimum avant l'ouverture<br>
+        &#8226; SARL = le statut le plus courant et le plus simple en restauration<br>
+        &#8226; Declaration sanitaire 15 jours avant ouverture — obligatoire<br>
+        &#8226; Faites-vous accompagner par un expert-comptable specialise CHR<br>
+        &#8226; Budget demarches : 2 000-5 000 EUR (hors travaux et licence IV)
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 3 — PERIODES D'ESSAI -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">Periodes d'essai et preavis en HCR</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 6 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Durees legales par contrat</h3>
+      <table class="res-table">
+        <tr><th>Contrat</th><th>Periode essai</th><th>Renouvellement</th><th>Preavis demission</th><th>Indemnite rupture</th></tr>
+        <tr><td><strong>CDI</strong></td><td>2 mois</td><td>1 fois (4 mois max)</td><td>8j (<6m) / 1m (6m-2a) / 2m (>2a)</td><td>1/4 mois / annee</td></tr>
+        <tr><td><strong>CDD <6 mois</strong></td><td>1j / semaine (max 2 sem)</td><td>Non</td><td>Aucun a echeance</td><td>10% du brut total</td></tr>
+        <tr><td><strong>CDD >6 mois</strong></td><td>1 mois</td><td>Non</td><td>Aucun a echeance</td><td>10% du brut total</td></tr>
+        <tr><td><strong>Extra</strong></td><td>Aucune</td><td>—</td><td>Aucun</td><td>10% + conges payes</td></tr>
+        <tr><td><strong>Apprenti</strong></td><td>45 jours en entreprise</td><td>Non</td><td>Variable</td><td>Selon motif</td></tr>
+      </table>
+
+      <h3>Delai de prevenance en periode d'essai</h3>
+      <p>La rupture pendant l'essai est libre (pas besoin de motif) mais impose un delai de prevenance : <strong>24h</strong> (presence <8j), <strong>48h</strong> (8j-1 mois), <strong>2 semaines</strong> (>1 mois), <strong>1 mois</strong> (>3 mois). Le non-respect ouvre droit a une indemnite compensatrice equivalente aux jours de prevenance non respectes.</p>
+
+      <h3>Rupture CDD — les 4 cas autorises</h3>
+      <ul>
+        <li>Accord des deux parties</li>
+        <li>Faute grave du salarie</li>
+        <li>Force majeure (incendie, inondation)</li>
+        <li>Embauche en CDI (chez vous ou ailleurs — preavis raccourci)</li>
+      </ul>
+      <p>En dehors de ces 4 cas, la rupture anticipee d'un CDD vous expose a des dommages-interets equivalents aux salaires restant dus jusqu'a la fin du contrat.</p>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; CDI = 2 mois d'essai, renouvelable 1 fois (4 mois max)<br>
+        &#8226; Respectez le delai de prevenance — sinon indemnite due<br>
+        &#8226; CDD : rupture anticipee = dommages-interets sauf 4 exceptions<br>
+        &#8226; Redigez toujours un contrat ecrit, meme pour les extras<br>
+        &#8226; Conservez les contrats 5 ans apres la fin de la relation de travail
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE 4 — HACCP -->
+  <div class="card res-acc" onclick="this.classList.toggle('open')">
+    <div class="res-acc-head">
+      <div class="res-acc-title">HACCP : plan de maitrise sanitaire</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="res-acc-meta">&#128337; 8 min</div><div class="res-acc-arrow">&#9654;</div></div>
+    </div>
+    <div class="res-acc-body" onclick="event.stopPropagation()">
+      <h3>Les 7 principes HACCP</h3>
+      <div class="res-process">
+        <div class="res-process-step"><div class="res-process-num">1</div><div class="res-process-label">Identifier les dangers</div></div>
+        <div class="res-process-step"><div class="res-process-num">2</div><div class="res-process-label">Points critiques</div></div>
+        <div class="res-process-step"><div class="res-process-num">3</div><div class="res-process-label">Seuils critiques</div></div>
+        <div class="res-process-step"><div class="res-process-num">4</div><div class="res-process-label">Surveillance</div></div>
+        <div class="res-process-step"><div class="res-process-num">5</div><div class="res-process-label">Actions correctives</div></div>
+        <div class="res-process-step"><div class="res-process-num">6</div><div class="res-process-label">Verification</div></div>
+        <div class="res-process-step"><div class="res-process-num">7</div><div class="res-process-label">Documentation</div></div>
+      </div>
+
+      <h3>Temperatures critiques</h3>
+      <table class="res-table">
+        <tr><th>Zone</th><th>Temperature</th><th>Action</th></tr>
+        <tr><td>Refrigerateur</td><td>0 a +3°C</td><td>Releve 2x/jour, matin et soir</td></tr>
+        <tr><td>Chambre froide positive</td><td>0 a +3°C</td><td>Releve quotidien</td></tr>
+        <tr><td>Congelateur</td><td>-18°C ou moins</td><td>Releve quotidien</td></tr>
+        <tr><td>Cuisson viande</td><td>>63°C a coeur</td><td>Sonde de cuisson</td></tr>
+        <tr><td>Cuisson volaille</td><td>>70°C a coeur</td><td>Sonde obligatoire</td></tr>
+        <tr><td>Service chaud</td><td>>63°C</td><td>Bain-marie, lampe chauffante</td></tr>
+        <tr><td>Service froid</td><td><3°C</td><td>Vitrine refrigeree</td></tr>
+        <tr><td>Refroidissement</td><td>63°C a 10°C en <2h</td><td>Cellule de refroidissement</td></tr>
+        <tr><td><strong>Zone de danger</strong></td><td><strong>10°C a 63°C</strong></td><td><strong>Maximum 2h dans cette zone</strong></td></tr>
+      </table>
+
+      <h3>Le plan de nettoyage</h3>
+      <p>Chaque zone doit avoir un planning precis :</p>
+      <table class="res-table">
+        <tr><th>Zone</th><th>Frequence</th><th>Produit</th></tr>
+        <tr><td>Plans de travail</td><td>Apres chaque utilisation</td><td>Detergent + desinfectant</td></tr>
+        <tr><td>Sols cuisine</td><td>Chaque fin de service</td><td>Detergent alcalin</td></tr>
+        <tr><td>Frigos</td><td>1x / semaine</td><td>Detergent neutre</td></tr>
+        <tr><td>Hotte / extraction</td><td>1x / mois</td><td>Degraissant</td></tr>
+        <tr><td>Congelateur</td><td>1x / trimestre</td><td>Degivrage + nettoyage</td></tr>
+      </table>
+
+      <h3>Registres obligatoires</h3>
+      <ul>
+        <li><strong>Releves de temperature</strong> — frigos, congelateurs, cuisson : quotidien</li>
+        <li><strong>Fiches de reception</strong> — temperature a reception, etat emballages, DLC</li>
+        <li><strong>Plan de nettoyage</strong> — dates, responsable, signature</li>
+        <li><strong>Tracabilite</strong> — lot, fournisseur, DLC pour chaque produit</li>
+        <li><strong>Formation</strong> — attestation HACCP de chaque employe forme</li>
+      </ul>
+
+      <div class="res-retenir">
+        <strong>A retenir :</strong><br>
+        &#8226; Au moins 1 personne formee HACCP (14h) dans l'etablissement<br>
+        &#8226; Zone de danger = 10-63°C — maximum 2h dans cette zone<br>
+        &#8226; Releves de temperature 2x/jour — conservez-les 3 ans<br>
+        &#8226; Un controle DDPP peut arriver sans preavis — soyez toujours prets<br>
+        &#8226; Non-conformite grave = fermeture administrative immediate
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     CALENDRIER
+     ═══════════════════════════════════════════════════════════ -->
+{% if page == 'res_calendrier' %}
+<style>
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-hdr{text-align:center;font-size:11px;font-weight:700;color:var(--dim);padding:10px 0;text-transform:uppercase;letter-spacing:.5px}
+.cal-day{min-height:110px;padding:6px 8px;border-radius:8px;font-size:12px;font-weight:600;position:relative;cursor:pointer;transition:background .1s;border:1px solid var(--border);background:var(--white);overflow:hidden;display:flex;flex-direction:column}
+.cal-day:hover{background:var(--bg);border-color:var(--green)}
+.cal-day.today{outline:2px solid var(--green);outline-offset:-1px}
+.cal-day.empty{background:transparent;cursor:default;pointer-events:none;border:none;min-height:0}
+.cal-day.ferie{background:#FFF5F5;border-color:#FECACA}
+.cal-day.pont{background:#FFFBEB;border-color:#FDE68A}
+.cal-day.ferme{background:repeating-linear-gradient(135deg,#f5f4f0,#f5f4f0 5px,#ece9e3 5px,#ece9e3 6px);border-color:#E4DDD3}
+[data-theme="dark"] .cal-day.ferie{background:#450A0A;border-color:#7F1D1D}
+[data-theme="dark"] .cal-day.ferie .cal-num{color:var(--red)}
+[data-theme="dark"] .cal-day.ferie .cal-ferie-label{color:var(--red)}
+[data-theme="dark"] .cal-day.pont{background:#422006;border-color:#78350F}
+[data-theme="dark"] .cal-day.ferme{background:repeating-linear-gradient(135deg,#1A1A1A,#1A1A1A 5px,#222 5px,#222 6px);border-color:var(--border)}
+.cal-num{font-family:'Outfit',sans-serif;font-size:18px;font-weight:600;color:var(--text);line-height:1;margin-bottom:4px}
+.cal-day.ferie .cal-num{color:#991B1B}
+.cal-day.ferme .cal-num{color:#9a9490}
+.cal-content{flex:1;display:flex;flex-direction:column;gap:2px;min-height:0;overflow:hidden;max-height:none}
+.cal-vac{display:flex;gap:2px;margin-bottom:2px}
+.cal-vac-dot{font-size:8px;font-weight:700;padding:1px 4px;border-radius:3px;color:#fff;line-height:1.3}
+.cal-vac-dot.za{background:#3B82F6}.cal-vac-dot.zb{background:#8B5CF6}.cal-vac-dot.zc{background:#F97316}
+.cal-ferie-label{font-size:9px;color:#991B1B;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cal-ferme-label{font-size:9px;color:#9a9490;font-weight:500;position:absolute;bottom:4px;left:8px}
+.cal-evt{font-size:9px;font-weight:600;padding:2px 5px;border-radius:4px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;cursor:pointer;max-width:100%}
+.cal-tip{display:none;position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;font-size:11px;padding:8px 12px;border-radius:8px;white-space:pre-line;z-index:50;font-weight:400;pointer-events:none;max-width:220px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.cal-day:hover .cal-tip{display:block}
+.cal-legend{display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--muted);align-items:center}
+.cal-legend-item{display:flex;align-items:center;gap:6px}
+.cal-legend-box{width:14px;height:14px;border-radius:4px}
+@media(max-width:768px){
+  .cal-grid{gap:2px}
+  .cal-day{min-height:52px;padding:4px;font-size:11px}
+  .cal-num{font-size:14px}
+  .cal-hdr{font-size:9px;padding:6px 0}
+  .cal-content{max-height:36px}
+  .cal-ferie-label{font-size:7px}
+  .cal-evt{font-size:8px;padding:1px 3px}
+  .cal-vac-dot{font-size:7px;padding:0 3px}
+  .cal-legend{gap:10px;font-size:11px}
+  .cal-tip{display:none!important}
+}
+@media(max-width:430px){
+  .cal-day{min-height:44px;padding:3px}
+  .cal-num{font-size:12px;margin-bottom:2px}
+  .cal-content{max-height:28px}
+  .cal-ferie-label,.cal-ferme-label{font-size:6px}
+  .cal-evt{font-size:7px;padding:1px 2px}
+  .cal-vac-dot{font-size:6px;padding:0 2px}
+  .cal-hdr{font-size:8px;padding:4px 0;letter-spacing:0}
+}
+</style>
+<div class="page">
+  <!-- Navigation -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <button class="btn btn-outline" onclick="calNav(-1)" style="padding:8px 14px;font-size:16px">&larr;</button>
+      <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--text);min-width:140px;text-align:center" id="cal-month-label"></div>
+      <button class="btn btn-outline" onclick="calNav(1)" style="padding:8px 14px;font-size:16px">&rarr;</button>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('modal-manage-types').classList.add('open')">G&eacute;rer les types</button>
+      <button class="btn btn-outline btn-sm" onclick="calToday()">Aujourd'hui</button>
+    </div>
+  </div>
+
+  <!-- Stats du mois -->
+  <div id="cal-stats" style="display:flex;gap:12px;margin-bottom:16px"></div>
+
+  <!-- Calendrier -->
+  <div class="card" style="padding:16px">
+    <div class="cal-grid">
+      <div class="cal-hdr">Lun</div><div class="cal-hdr">Mar</div><div class="cal-hdr">Mer</div><div class="cal-hdr">Jeu</div><div class="cal-hdr">Ven</div><div class="cal-hdr">Sam</div><div class="cal-hdr">Dim</div>
+    </div>
+    <div class="cal-grid" id="cal-body"></div>
+  </div>
+
+  <!-- Legende -->
+  <div style="margin-top:18px" class="cal-legend">
+    <div class="cal-legend-item"><div class="cal-legend-box" style="background:#FFF5F5;border:1px solid #FECACA"></div>Férié</div>
+    <div class="cal-legend-item"><div class="cal-legend-box" style="background:#FFFBEB;border:1px solid #FDE68A"></div>Pont</div>
+    <div class="cal-legend-item"><span class="cal-vac-dot za" style="font-size:10px;padding:2px 6px">A</span>Zone A</div>
+    <div class="cal-legend-item"><span class="cal-vac-dot zb" style="font-size:10px;padding:2px 6px">B</span>Zone B</div>
+    <div class="cal-legend-item"><span class="cal-vac-dot zc" style="font-size:10px;padding:2px 6px">C</span>Zone C</div>
+    <div class="cal-legend-item"><div class="cal-legend-box" style="background:var(--green)"></div>Événement</div>
+    <div class="cal-legend-item"><div class="cal-legend-box" style="background:repeating-linear-gradient(135deg,#f5f4f0,#f5f4f0 3px,#ece9e3 3px,#ece9e3 4px);border:1px solid #E4DDD3"></div>Fermé</div>
+  </div>
+
+  <!-- Modal ajouter evenement -->
+  <!-- Chooser modal -->
+  <div class="modal-bg" id="cal-chooser" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal" style="width:360px">
+      <div class="modal-title">Que voulez-vous ajouter le <span id="cal-chooser-date"></span> ?</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button class="btn btn-green" style="width:100%;justify-content:center;padding:12px" onclick="calChoose('event')">
+          <span style="font-size:16px;margin-right:6px">&#128197;</span> Événement
+        </button>
+        <button class="btn btn-outline" style="width:100%;justify-content:center;padding:12px" onclick="calChoose('ferme')">
+          <span style="font-size:16px;margin-right:6px">&#128683;</span> Jour de fermeture
+        </button>
+        <button class="btn btn-outline" style="width:100%;justify-content:center;padding:12px;color:var(--dim)" onclick="document.getElementById('cal-chooser').classList.remove('open')">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fermeture modal -->
+  <div class="modal-bg" id="modal-cal-ferme" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal" style="width:400px">
+      <div class="modal-title">Jour de fermeture</div>
+      <form method="POST" action="/fermetures/add">
+        <input type="hidden" name="date" id="cal-ferme-date">
+        <input type="hidden" name="type" id="cal-ferme-type" value="simple">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:8px">
+            <button type="button" class="btn btn-green btn-sm" id="ferme-btn-simple" onclick="document.getElementById('cal-ferme-type').value='simple';document.getElementById('cal-ferme-recurrence').style.display='none';this.className='btn btn-green btn-sm';document.getElementById('ferme-btn-rec').className='btn btn-outline btn-sm'">Ce jour uniquement</button>
+            <button type="button" class="btn btn-outline btn-sm" id="ferme-btn-rec" onclick="document.getElementById('cal-ferme-type').value='recurrence';document.getElementById('cal-ferme-recurrence').style.display='';this.className='btn btn-green btn-sm';document.getElementById('ferme-btn-simple').className='btn btn-outline btn-sm'">Recurrence hebdo</button>
+          </div>
+          <div id="cal-ferme-recurrence" style="display:none">
+            <label class="form-label">Fermer chaque</label>
+            <select name="jour_semaine" class="form-input">
+              <option value="0">Lundi</option><option value="1">Mardi</option><option value="2">Mercredi</option>
+              <option value="3">Jeudi</option><option value="4">Vendredi</option><option value="5">Samedi</option><option value="6">Dimanche</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:8px;justify-content:flex-end">
+            <button type="button" class="btn btn-outline" onclick="document.getElementById('modal-cal-ferme').classList.remove('open')">Annuler</button>
+            <button type="submit" class="btn btn-green">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Fermeture detail modal -->
+  <div class="modal-bg" id="modal-ferme-detail" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal" style="width:400px">
+      <div class="modal-title">Jour de fermeture</div>
+      <div style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="font-size:12px;color:var(--dim);width:60px">Date</span>
+          <span style="font-size:13px;font-weight:600" id="ferme-detail-date"></span>
+        </div>
+        <div id="ferme-detail-rec-info" style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:12px;color:var(--dim);width:60px">Type</span>
+          <span style="font-size:13px" id="ferme-detail-type"></span>
+        </div>
+      </div>
+      <div id="ferme-detail-actions"></div>
+    </div>
+  </div>
+
+  <!-- Modale modification récurrence fermeture -->
+  <div class="modal-bg" id="modal-ferme-rec-edit" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal" style="width:420px">
+      <div class="modal-title">Modifier la récurrence</div>
+      <form id="ferme-rec-edit-form" onsubmit="return submitFermeRecEdit(event)">
+        <input type="hidden" name="id" id="frec-id">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Jour de la semaine</label>
+            <select name="jour_semaine" id="frec-jour" class="form-input">
+              <option value="0">Lundi</option><option value="1">Mardi</option><option value="2">Mercredi</option>
+              <option value="3">Jeudi</option><option value="4">Vendredi</option><option value="5">Samedi</option>
+              <option value="6">Dimanche</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select name="type_ferm" id="frec-type" class="form-input">
+              <option value="ferme">Fermé</option>
+              <option value="repos">Repos</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date de début (optionnel)</label>
+            <input type="date" name="date_debut" id="frec-debut" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date de fin (optionnel)</label>
+            <input type="date" name="date_fin" id="frec-fin" class="form-input">
+          </div>
+          <div style="display:flex;gap:8px;justify-content:flex-end">
+            <button type="button" class="btn btn-outline" onclick="document.getElementById('modal-ferme-rec-edit').classList.remove('open')">Annuler</button>
+            <button type="submit" class="btn btn-green">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Event detail modal -->
+  <div class="modal-bg" id="modal-evt-detail" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal" style="width:400px">
+      <div class="modal-title" id="evt-detail-title"></div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:12px;color:var(--dim);width:50px">Date</span>
+          <span style="font-size:13px;font-weight:600" id="evt-detail-date"></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:12px;color:var(--dim);width:50px">Couleur</span>
+          <span id="evt-detail-color" style="width:20px;height:20px;border-radius:4px;display:inline-block"></span>
+        </div>
+        <div id="evt-detail-note-row" style="display:flex;align-items:flex-start;gap:8px">
+          <span style="font-size:12px;color:var(--dim);width:50px">Note</span>
+          <span style="font-size:13px;color:var(--text)" id="evt-detail-note"></span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button class="btn btn-red btn-sm" id="evt-detail-delete">Supprimer</button>
+        <button class="btn btn-outline btn-sm" id="evt-detail-edit">Modifier</button>
+        <button class="btn btn-outline btn-sm" onclick="document.getElementById('modal-evt-detail').classList.remove('open')">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event modal -->
+  <div class="modal-bg" id="modal-cal-evt" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal" style="width:400px">
+      <div class="modal-title" id="cal-evt-modal-title">Ajouter un evenement</div>
+      <form method="POST" action="/evenements/add" id="cal-evt-form">
+        <input type="hidden" name="redirect" value="calendrier">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="form-group"><label class="form-label">Date</label><input type="date" name="date" id="cal-evt-date" class="form-input" required></div>
+          <div class="form-group"><label class="form-label">Titre</label><input type="text" name="titre" id="cal-evt-titre" class="form-input" placeholder="Soiree privee, concert, match..." required></div>
+          <div class="form-group">
+            <div style="display:flex;align-items:center;justify-content:space-between"><label class="form-label" style="margin-bottom:0">Type</label><a href="#" onclick="event.preventDefault();document.getElementById('modal-cal-evt').classList.remove('open');document.getElementById('modal-manage-types').classList.add('open')" style="font-size:10px;color:var(--green);text-decoration:none;font-weight:600">G&eacute;rer les types</a></div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span id="cal-evt-color-preview" title="Couleur du type" style="flex-shrink:0;width:28px;height:28px;border-radius:6px;background:#6B7280;border:1px solid var(--border)"></span>
+              <select name="type_evt" id="cal-evt-type" class="form-input" style="flex:1" onchange="var tc=TYPE_COLORS[this.value]||'#6B7280';document.getElementById('cal-evt-color-preview').style.background=tc">
+                <option value="">&mdash; Aucun type &mdash;</option>
+                {% for ct in cal_custom_types|default([]) %}
+                <option value="{{ ct.nom }}">{{ ct.nom }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Note (optionnel)</label><input type="text" name="note" id="cal-evt-note" class="form-input" placeholder="Details..."></div>
+          <div style="display:flex;gap:8px;justify-content:flex-end">
+            <button type="button" class="btn btn-outline" onclick="document.getElementById('modal-cal-evt').classList.remove('open')">Annuler</button>
+            <button type="submit" class="btn btn-green">Ajouter</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal gestion types -->
+  <div class="modal-bg" id="modal-manage-types" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal" style="width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;padding:24px 28px">
+      <div class="modal-title">G&eacute;rer les types d'&eacute;v&eacute;nements</div>
+      <!-- All types (all editable/deletable) -->
+      {% set palette = ['#2D6A4A','#1D4ED8','#D97706','#DC2626','#7C3AED','#8B5CF6','#EC4899','#F59E0B','#6B7280'] %}
+      {% for ct in cal_custom_types|default([]) %}
+      <div class="evt-type-row" data-id="{{ ct.id }}" data-nom="{{ ct.nom }}" data-couleur="{{ ct.couleur }}" style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)">
+        <span class="ett-swatch" style="width:14px;height:14px;border-radius:4px;background:{{ ct.couleur }};flex-shrink:0"></span>
+        <span class="ett-name" style="font-size:13px;color:var(--text);flex:1">{{ ct.nom }}</span>
+        <input type="text" class="ett-input form-input" value="{{ ct.nom }}" style="display:none;flex:1;font-size:13px;padding:4px 8px">
+        <div class="ett-colors" style="display:none;gap:4px">
+          {% for c in palette %}
+          <label style="cursor:pointer"><input type="radio" name="ett-couleur-{{ ct.id }}" value="{{ c }}" {% if c == ct.couleur %}checked{% endif %} style="display:none"><span style="display:block;width:18px;height:18px;border-radius:4px;background:{{ c }};border:2px solid {% if c == ct.couleur %}var(--text){% else %}transparent{% endif %}" onclick="this.parentElement.querySelector('input').checked=true;this.parentElement.parentElement.querySelectorAll('span').forEach(function(s){s.style.borderColor='transparent'});this.style.borderColor='var(--text)'"></span></label>
+          {% endfor %}
+        </div>
+        <button type="button" class="ett-edit btn btn-outline btn-sm" title="Modifier" onclick="ettEdit(this)" style="padding:3px 8px;font-size:11px">&#9998;</button>
+        <button type="button" class="ett-save btn btn-green btn-sm" title="Enregistrer" onclick="ettSave(this)" style="display:none;padding:3px 8px;font-size:11px">Enregistrer</button>
+        <button type="button" class="ett-cancel btn btn-outline btn-sm" title="Annuler" onclick="ettCancel(this)" style="display:none;padding:3px 8px;font-size:11px">&times;</button>
+        <a class="ett-del" href="/event-types/delete/{{ ct.id }}" style="font-size:18px;color:var(--dim);text-decoration:none;line-height:1;opacity:.5" onclick="return confirm('Supprimer ce type\u00a0?')" title="Supprimer">&times;</a>
+      </div>
+      {% endfor %}
+      <script>
+      window.ettEdit=function(btn){var row=btn.closest('.evt-type-row');row.querySelector('.ett-name').style.display='none';row.querySelector('.ett-input').style.display='';row.querySelector('.ett-colors').style.display='flex';row.querySelector('.ett-edit').style.display='none';row.querySelector('.ett-del').style.display='none';row.querySelector('.ett-save').style.display='';row.querySelector('.ett-cancel').style.display='';};
+      window.ettCancel=function(btn){var row=btn.closest('.evt-type-row');row.querySelector('.ett-input').value=row.dataset.nom;var col=row.dataset.couleur;row.querySelectorAll('.ett-colors input').forEach(function(i){i.checked=(i.value===col);var s=i.nextElementSibling;if(s)s.style.borderColor=i.checked?'var(--text)':'transparent'});row.querySelector('.ett-name').style.display='';row.querySelector('.ett-input').style.display='none';row.querySelector('.ett-colors').style.display='none';row.querySelector('.ett-edit').style.display='';row.querySelector('.ett-del').style.display='';row.querySelector('.ett-save').style.display='none';row.querySelector('.ett-cancel').style.display='none';};
+      window.ettSave=function(btn){var row=btn.closest('.evt-type-row');var id=row.dataset.id;var nom=row.querySelector('.ett-input').value.trim();var col='#6B7280';row.querySelectorAll('.ett-colors input').forEach(function(i){if(i.checked)col=i.value});if(!nom){alert('Nom requis');return}btn.disabled=true;fetch('/api/calendrier/types/'+encodeURIComponent(id),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({nom:nom,couleur:col})}).then(function(r){return r.json()}).then(function(j){if(j&&j.ok){location.reload()}else{alert('Erreur: '+(j&&j.error||'inconnue'));btn.disabled=false}}).catch(function(e){alert('Erreur réseau');btn.disabled=false});};
+      </script>
+      {% if not cal_custom_types|default([]) %}
+      <div style="padding:12px 0;font-size:13px;color:var(--dim)">Aucun type configur&eacute;</div>
+      {% endif %}
+      <!-- Add new type -->
+      <form method="POST" action="/event-types/add" style="border-top:1px solid var(--border);padding-top:14px;margin-top:8px">
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <div style="flex:1"><input type="text" name="nom" class="form-input" placeholder="Nouveau type..." required style="font-size:13px"></div>
+          <div style="display:flex;gap:4px;padding-bottom:1px" id="type-color-picker">
+            {% set palette = ['#2D6A4A','#1D4ED8','#D97706','#DC2626','#7C3AED','#8B5CF6','#EC4899','#F59E0B','#6B7280'] %}
+            {% for c in palette %}
+            <label style="cursor:pointer"><input type="radio" name="couleur" value="{{ c }}" {% if loop.first %}checked{% endif %} style="display:none"><span style="display:block;width:22px;height:22px;border-radius:5px;background:{{ c }};border:2px solid transparent" onclick="document.querySelectorAll('#type-color-picker span').forEach(function(s){s.style.borderColor='transparent'});this.style.borderColor='var(--text)'"></span></label>
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-green btn-sm" style="white-space:nowrap">Ajouter</button>
+        </div>
+      </form>
+      <div style="display:flex;justify-content:flex-end;margin-top:14px">
+        <button class="btn btn-outline btn-sm" onclick="document.getElementById('modal-manage-types').classList.remove('open')">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+var MOIS=['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre'];
+var curY,curM;
+
+// Jours feries 2025-2026
+var FERIES={
+  '2025-01-01':'Jour de l\'an','2025-04-21':'Lundi de Paques','2025-05-01':'Fete du Travail',
+  '2025-05-08':'Victoire 1945','2025-05-29':'Ascension','2025-06-09':'Lundi de Pentecote',
+  '2025-07-14':'Fete nationale','2025-08-15':'Assomption','2025-11-01':'Toussaint',
+  '2025-11-11':'Armistice','2025-12-25':'Noel',
+  '2026-01-01':'Jour de l\'an','2026-04-06':'Lundi de Paques','2026-05-01':'Fete du Travail',
+  '2026-05-08':'Victoire 1945','2026-05-14':'Ascension','2026-05-25':'Lundi de Pentecote',
+  '2026-07-14':'Fete nationale','2026-08-15':'Assomption','2026-11-01':'Toussaint',
+  '2026-11-11':'Armistice','2026-12-25':'Noel'
+};
+
+// Ponts (vendredi apres jeudi ferie, lundi avant mardi ferie)
+var PONTS={
+  '2025-05-30':'Pont de l\'Ascension','2025-11-10':'Pont du 11 novembre',
+  '2026-05-15':'Pont de l\'Ascension','2026-07-13':'Pont du 14 juillet'
+};
+
+// Vacances scolaires — periodes [debut, fin] (dates inclusives)
+// 2024-2025
+var VAC_A=[
+  ['2024-10-19','2024-11-03'],['2024-12-21','2025-01-05'],['2025-02-22','2025-03-09'],
+  ['2025-04-19','2025-05-04'],['2025-07-05','2025-08-31']
+];
+var VAC_B=[
+  ['2024-10-19','2024-11-03'],['2024-12-21','2025-01-05'],['2025-02-08','2025-02-23'],
+  ['2025-04-05','2025-04-21'],['2025-07-05','2025-08-31']
+];
+var VAC_C=[
+  ['2024-10-19','2024-11-03'],['2024-12-21','2025-01-05'],['2025-02-15','2025-03-02'],
+  ['2025-04-12','2025-04-27'],['2025-07-05','2025-08-31']
+];
+// 2025-2026
+var VAC_A2=[
+  ['2025-10-18','2025-11-02'],['2025-12-20','2026-01-04'],['2026-02-14','2026-03-01'],
+  ['2026-04-11','2026-04-26'],['2026-07-04','2026-08-31']
+];
+var VAC_B2=[
+  ['2025-10-18','2025-11-02'],['2025-12-20','2026-01-04'],['2026-02-07','2026-02-22'],
+  ['2026-04-04','2026-04-19'],['2026-07-04','2026-08-31']
+];
+var VAC_C2=[
+  ['2025-10-18','2025-11-02'],['2025-12-20','2026-01-04'],['2026-02-21','2026-03-08'],
+  ['2026-04-18','2026-05-03'],['2026-07-04','2026-08-31']
+];
+
+function inRange(ds,ranges){
+  for(var i=0;i<ranges.length;i++){if(ds>=ranges[i][0]&&ds<=ranges[i][1])return true}
+  return false;
+}
+function vacLabel(ranges,name){
+  for(var i=0;i<ranges.length;i++){
+    if(curDS>=ranges[i][0]&&curDS<=ranges[i][1]){
+      var labels=['Toussaint','Noel','Hiver','Printemps','Ete'];
+      return'Vacances '+labels[i%5]+' '+name;
+    }
+  }
+  return null;
+}
+
+var curDS='';
+
+function pad(n){return n<10?'0'+n:''+n}
+
+function render(){
+  var today=new Date();var todayS=today.getFullYear()+'-'+pad(today.getMonth()+1)+'-'+pad(today.getDate());
+  document.getElementById('cal-month-label').textContent=MOIS[curM]+' '+curY;
+
+  var first=new Date(curY,curM,1);
+  var dow=(first.getDay()+6)%7;// 0=lun
+  var days=new Date(curY,curM+1,0).getDate();
+  var html='';
+  var nbFeries=0,nbPonts=0;
+  var TYPE_COLORS={ {% for ct in cal_custom_types|default([]) %}{% if not loop.first %},{% endif %}'{{ ct.nom }}':'{{ ct.couleur }}'{% endfor %} };
+
+  // Empty cells
+  for(var i=0;i<dow;i++)html+='<div class="cal-day empty"></div>';
+
+  for(var d=1;d<=days;d++){
+    var ds=curY+'-'+pad(curM+1)+'-'+pad(d);
+    curDS=ds;
+    var cls='cal-day';
+    var tips=[];
+    var isFerie=!!FERIES[ds];
+    var isPont=!!PONTS[ds];
+    if(ds===todayS)cls+=' today';
+    if(isFerie){cls+=' ferie';tips.push(FERIES[ds]);nbFeries++}
+    if(isPont){cls+=' pont';tips.push(PONTS[ds]);nbPonts++}
+
+    var allA=VAC_A.concat(VAC_A2);
+    var allB=VAC_B.concat(VAC_B2);
+    var allC=VAC_C.concat(VAC_C2);
+    var za=inRange(ds,allA),zb=inRange(ds,allB),zc=inRange(ds,allC);
+
+    if(za){var l=vacLabel(allA,'Zone A');if(l)tips.push(l)}
+    if(zb){var l2=vacLabel(allB,'Zone B');if(l2&&tips.indexOf(l2)===-1)tips.push(l2)}
+    if(zc){var l3=vacLabel(allC,'Zone C');if(l3&&tips.indexOf(l3)===-1)tips.push(l3)}
+
+    // Fermetures
+    var isFerme=false;
+    var fermeId=null;
+    var hasException=false;
+    _fermetures.forEach(function(f){
+      if(f.jour_semaine===-2&&f.date===ds){hasException=true}
+    });
+    // Une exception ne masque QUE la récurrence pour ce jour — pas une fermeture ponctuelle posée ensuite
+    _fermetures.forEach(function(f){
+      if(f.recurrence&&!hasException&&f.jour_semaine===((new Date(curY,curM,d)).getDay()+6)%7){isFerme=true;fermeId=f.id}
+      if(!f.recurrence&&f.date===ds&&f.jour_semaine!==-2){isFerme=true;fermeId=f.id}
+    });
+    if(isFerme){cls+=' ferme';tips.push('Fermé')}
+
+    // Build cell content
+    var content='<div class="cal-num">'+d+'</div><div class="cal-content">';
+
+    // Vacances — fine bande en haut
+    var vacHtml='';
+    if(za)vacHtml+='<span class="cal-vac-dot za">A</span>';
+    if(zb)vacHtml+='<span class="cal-vac-dot zb">B</span>';
+    if(zc)vacHtml+='<span class="cal-vac-dot zc">C</span>';
+    if(vacHtml)content+='<div class="cal-vac">'+vacHtml+'</div>';
+
+    // Ferie label
+    if(isFerie)content+='<div class="cal-ferie-label">'+FERIES[ds]+'</div>';
+    if(isPont)content+='<div class="cal-ferie-label" style="color:#92400E">'+PONTS[ds]+'</div>';
+
+    // Custom events (max 2 visible)
+    var dayEvts=_customEvts.filter(function(e){return e.date===ds});
+    dayEvts.slice(0,2).forEach(function(ev){
+      if(window._evtFilterHidden && window._evtFilterHidden[ev.type_evt||''])return;
+      var typeBadge=ev.type_evt?'<span style="font-size:7px;opacity:.8;display:block">'+ev.type_evt+'</span>':'';
+      // Couleur prioritaire = type courant (TYPE_COLORS) ; fallback = couleur stockée (anniversaires) ; défaut = vert
+      var evColor=(ev.type_evt&&TYPE_COLORS[ev.type_evt])||ev.couleur||'#3A7D56';
+      content+='<span class="cal-evt" style="background:'+evColor+'" title="'+ev.titre.replace(/"/g,'&quot;')+'" onclick="event.stopPropagation();openEvtDetail('+JSON.stringify(ev).replace(/"/g,'&quot;')+')">'+ev.titre+typeBadge+'</span>';
+      tips.push(ev.titre+(ev.type_evt?' ['+ev.type_evt+']':'')+(ev.note?' — '+ev.note:''));
+    });
+    if(dayEvts.length>2)content+='<div style="font-size:8px;color:var(--dim)">+'+( dayEvts.length-2)+' autre'+(dayEvts.length>3?'s':'')+'</div>';
+
+    content+='</div>';
+
+    // Ferme label at bottom
+    if(isFerme)content+='<div class="cal-ferme-label">Fermé</div>';
+
+    var tip=tips.length?'<div class="cal-tip">'+tips.join('\n')+'</div>':'';
+    var isRec=false;
+    if(isFerme){_fermetures.forEach(function(f){if(f.id===fermeId&&f.recurrence)isRec=true})}
+    var clickFn=isFerme?'openFermeDetail('+fermeId+',\''+ds+'\','+isRec+')':'openCalEvt(\''+ds+'\')';
+    html+='<div class="'+cls+'" onclick="'+clickFn+'">'+content+tip+'</div>';
+  }
+  document.getElementById('cal-body').innerHTML=html;
+
+  // Stats
+  var stats='';
+  if(nbFeries)stats+='<div class="metric" style="padding:12px 16px;flex:1;text-align:center"><div class="metric-val" style="font-size:20px;color:var(--red)">'+nbFeries+'</div><div class="metric-sub">jour'+(nbFeries>1?'s':'')+' f\u00e9ri\u00e9'+(nbFeries>1?'s':'')+'</div></div>';
+  if(nbPonts)stats+='<div class="metric" style="padding:12px 16px;flex:1;text-align:center"><div class="metric-val" style="font-size:20px;color:var(--amber)">'+nbPonts+'</div><div class="metric-sub">pont'+(nbPonts>1?'s':'')+'</div></div>';
+  if(!nbFeries&&!nbPonts)stats='<div class="metric" style="padding:12px 16px;flex:1;text-align:center"><div class="metric-sub">Aucun f\u00e9ri\u00e9 ni pont ce mois</div></div>';
+  document.getElementById('cal-stats').innerHTML=stats;
+
+  // Legend by event type
+  var typeSet={};
+  _customEvts.forEach(function(e){if(e.type_evt)typeSet[e.type_evt]=TYPE_COLORS[e.type_evt]||e.couleur||'#3A7D56'});
+  var legend='';
+  for(var t in typeSet){
+    var hidden=window._evtFilterHidden&&window._evtFilterHidden[t];
+    legend+='<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:12px;font-size:11px;cursor:pointer;border:1px solid '+(hidden?'var(--border)':typeSet[t])+';background:'+(hidden?'var(--bg)':typeSet[t]+'22')+';color:'+(hidden?'var(--dim)':typeSet[t])+'" onclick="toggleEvtType(\''+t+'\')">';
+    legend+='<span style="width:6px;height:6px;border-radius:50%;background:'+(hidden?'var(--dim)':typeSet[t])+'"></span>'+t+'</span>';
+  }
+  if(legend){
+    legend='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">'+legend+'</div>';
+    document.getElementById('cal-stats').insertAdjacentHTML('afterend','<div id="cal-legend">'+legend+'</div>');
+  }
+  var oldLegend=document.querySelectorAll('#cal-legend');
+  if(oldLegend.length>1)oldLegend[0].remove();
+}
+
+// Custom events and fermetures from DB
+var _customEvts={{ cal_evenements|tojson if cal_evenements is defined else '[]' }};
+var _fermetures={{ cal_fermetures|tojson if cal_fermetures is defined else '[]' }};
+window._evtFilterHidden={};
+window.toggleEvtType=function(t){
+  window._evtFilterHidden[t]=!window._evtFilterHidden[t];
+  render();
+};
+// Custom types loaded from DB (no more localStorage)
+
+window.calNav=function(dir){curM+=dir;if(curM>11){curM=0;curY++}if(curM<0){curM=11;curY--}render()};
+window.calToday=function(){var t=new Date();curY=t.getFullYear();curM=t.getMonth();render()};
+window.openCalEvt=function(ds){
+  var _ds=ds;
+  // Show chooser modal
+  document.getElementById('cal-chooser-date').textContent=ds;
+  document.getElementById('cal-chooser').classList.add('open');
+  window._calChooserDate=ds;
+};
+window.calChoose=function(type){
+  document.getElementById('cal-chooser').classList.remove('open');
+  var ds=window._calChooserDate;
+  if(type==='event'){
+    document.getElementById('cal-evt-date').value=ds;
+    document.getElementById('cal-evt-titre').value='';
+    document.getElementById('cal-evt-note').value='';
+    var typeSel=document.getElementById('cal-evt-type');if(typeSel)typeSel.value='';
+    var prev=document.getElementById('cal-evt-color-preview');if(prev)prev.style.background='#6B7280';
+    document.getElementById('modal-cal-evt').classList.add('open');
+  } else if(type==='ferme'){
+    document.getElementById('cal-ferme-date').value=ds;
+    document.getElementById('cal-ferme-type').value='simple';
+    document.getElementById('cal-ferme-recurrence').style.display='none';
+    document.getElementById('modal-cal-ferme').classList.add('open');
+  }
+};
+
+window.openFermeRecEdit=function(fid){
+  var f=_fermetures.find(function(x){return x.id===fid});
+  if(!f)return;
+  document.getElementById('frec-id').value=fid;
+  document.getElementById('frec-jour').value=f.jour_semaine;
+  document.getElementById('frec-type').value=f.type_ferm||'ferme';
+  document.getElementById('frec-debut').value=f.date_debut||'';
+  document.getElementById('frec-fin').value=f.date_fin||'';
+  document.getElementById('modal-ferme-detail').classList.remove('open');
+  document.getElementById('modal-ferme-rec-edit').classList.add('open');
+};
+window.submitFermeRecEdit=function(e){
+  e.preventDefault();
+  var fid=document.getElementById('frec-id').value;
+  var body={
+    jour_semaine:parseInt(document.getElementById('frec-jour').value),
+    type_ferm:document.getElementById('frec-type').value,
+    date_debut:document.getElementById('frec-debut').value,
+    date_fin:document.getElementById('frec-fin').value
+  };
+  fetch('/fermetures/update/'+fid,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){return r.json()}).then(function(d){
+      if(d&&d.ok)location.reload();else alert('Erreur : '+(d&&d.error||'inconnue'));
+    }).catch(function(){alert('Erreur réseau')});
+  return false;
+};
+window.openFermeDetail=function(fid,ds,isRec){
+  var JOURS=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+  document.getElementById('ferme-detail-date').textContent=ds;
+  if(isRec){
+    var f=_fermetures.find(function(x){return x.id===fid});
+    var jn=f?JOURS[f.jour_semaine]:'';
+    document.getElementById('ferme-detail-type').textContent='Récurrence — tous les '+jn+'s';
+    document.getElementById('ferme-detail-actions').innerHTML=
+      '<div style="display:flex;flex-direction:column;gap:8px">'+
+      '<button class="btn btn-green btn-sm" style="width:100%;justify-content:center" onclick="openFermeRecEdit('+fid+')">Modifier la récurrence</button>'+
+      '<form method="POST" action="/fermetures/exception" style="margin:0"><input type="hidden" name="date" value="'+ds+'"><button type="submit" class="btn btn-outline btn-sm" style="width:100%;justify-content:center">Supprimer ce jour uniquement</button></form>'+
+      '<button class="btn btn-red btn-sm" style="width:100%;justify-content:center" onclick="if(confirm(\'Supprimer toute la récurrence (tous les '+jn+'s) ?\'))location.href=\'/fermetures/delete/'+fid+'\'">Supprimer toute la récurrence</button>'+
+      '<button class="btn btn-outline btn-sm" style="width:100%;justify-content:center" onclick="document.getElementById(\'modal-ferme-detail\').classList.remove(\'open\')">Fermer</button>'+
+      '</div>';
+  } else {
+    document.getElementById('ferme-detail-type').textContent='Fermeture ponctuelle';
+    document.getElementById('ferme-detail-actions').innerHTML=
+      '<div style="display:flex;gap:8px;justify-content:flex-end">'+
+      '<button class="btn btn-red btn-sm" onclick="if(confirm(\'Supprimer ce jour de fermeture ?\'))location.href=\'/fermetures/delete/'+fid+'\'">Supprimer</button>'+
+      '<button class="btn btn-outline btn-sm" onclick="document.getElementById(\'modal-ferme-detail\').classList.remove(\'open\')">Fermer</button>'+
+      '</div>';
+  }
+  document.getElementById('modal-ferme-detail').classList.add('open');
+};
+
+window.openEvtDetail=function(ev){
+  document.getElementById('evt-detail-title').textContent=ev.titre;
+  document.getElementById('evt-detail-date').textContent=ev.date+(ev.type_evt?' — '+ev.type_evt:'');
+  document.getElementById('evt-detail-color').style.background=(ev.type_evt&&TYPE_COLORS[ev.type_evt])||ev.couleur||'#3A7D56';
+  var noteRow=document.getElementById('evt-detail-note-row');
+  if(ev.note){document.getElementById('evt-detail-note').textContent=ev.note;noteRow.style.display='flex'}
+  else{noteRow.style.display='none'}
+  var isGenerated=(!ev.id||ev.id===0);
+  document.getElementById('evt-detail-delete').style.display=isGenerated?'none':'';
+  document.getElementById('evt-detail-edit').style.display=isGenerated?'none':'';
+  document.getElementById('evt-detail-delete').onclick=function(){
+    if(confirm('Supprimer cet evenement ?'))location.href='/evenements/delete/'+ev.id+'?redirect=calendrier';
+  };
+  document.getElementById('evt-detail-edit').onclick=function(){
+    document.getElementById('modal-evt-detail').classList.remove('open');
+    document.getElementById('cal-evt-date').value=ev.date;
+    document.getElementById('cal-evt-titre').value=ev.titre;
+    document.getElementById('cal-evt-note').value=ev.note||'';
+    // Restore type + couleur d'aperçu héritée du type
+    var typeSel=document.getElementById('cal-evt-type');
+    if(typeSel)typeSel.value=ev.type_evt||'';
+    var prev=document.getElementById('cal-evt-color-preview');
+    if(prev)prev.style.background=(ev.type_evt&&TYPE_COLORS[ev.type_evt])?TYPE_COLORS[ev.type_evt]:'#6B7280';
+    // Delete old then create new (simple approach — no update route needed)
+    var form=document.getElementById('cal-evt-form');
+    var oldAction=form.action;
+    // Add hidden field to delete old event first
+    var delInput=document.createElement('input');delInput.type='hidden';delInput.name='delete_id';delInput.value=ev.id;
+    form.appendChild(delInput);
+    document.getElementById('modal-cal-evt').classList.add('open');
+  };
+  document.getElementById('modal-evt-detail').classList.add('open');
+};
+
+// Init
+var now=new Date();curY=now.getFullYear();curM=now.getMonth();
+render();
+})();
+</script>
+{% endif %}

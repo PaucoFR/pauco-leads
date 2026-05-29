@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="shortcut icon" href="/static/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon compte &mdash; Pauco</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@400;600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F4EF;--white:#FFF;--dark:#0F1F14;--green:#2D6A4A;--border:#E4DDD3;--text:#17120D;--muted:#6A6059;--dim:#B0A89E;--red:#DC2626;--red-bg:#FEE2E2;--r:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:600px;margin:0 auto;padding:40px 20px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:24px}
+.back:hover{color:var(--text)}
+h1{font-size:22px;font-weight:700;margin-bottom:8px}
+.subtitle{font-size:13px;color:var(--muted);margin-bottom:32px}
+.section{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:20px}
+.section-title{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:16px}
+.form-row{display:flex;gap:12px;margin-bottom:14px}
+.form-row>div{flex:1}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+.form-input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;outline:none;transition:border-color .15s;background:var(--white)}
+.form-input:focus{border-color:var(--green)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .15s;justify-content:center}
+.btn-green{background:var(--dark);color:#F7F4EF;width:100%}
+.btn-green:hover{background:#1a3524}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--muted);width:100%;margin-bottom:8px}
+.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-red{background:var(--red-bg);color:var(--red);border:1px solid transparent;width:100%}
+.btn-red:hover{border-color:var(--red)}
+.sep{height:1px;background:var(--border);margin:20px 0}
+.legal{text-align:center;margin-top:24px;font-size:11px;color:var(--dim)}
+.legal a{color:var(--dim);text-decoration:none}
+.legal a:hover{text-decoration:underline}
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;color:#fff;opacity:0;transform:translateX(40px);animation:toastIn .3s ease forwards;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:9999}
+.toast-ok{background:#16a34a}
+.toast-err{background:#DC2626}
+@keyframes toastIn{to{opacity:1;transform:translateX(0)}}
+.modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--white);border-radius:var(--r);padding:28px;max-width:400px;width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.2);text-align:center}
+.modal h2{font-size:16px;font-weight:700;margin-bottom:8px}
+.modal p{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.modal-actions{display:flex;gap:8px}
+.modal-actions .btn{flex:1}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="/" class="back">&larr; Retour au dashboard</a>
+  <h1>Mon compte</h1>
+  <div class="subtitle">{{ email }}</div>
+
+  <!-- INFORMATIONS PERSONNELLES -->
+  <div class="section">
+    <div class="section-title">Informations personnelles</div>
+    <div class="form-row">
+      <div><label class="form-label">Pr&eacute;nom</label><input type="text" id="cp-prenom" class="form-input" value="{{ prenom }}"></div>
+      <div><label class="form-label">Nom</label><input type="text" id="cp-nom" class="form-input" value="{{ nom }}"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" value="{{ email }}" readonly style="background:var(--bg);color:var(--muted);cursor:not-allowed"><div style="font-size:11px;color:#999;font-style:italic;margin-top:6px">Pour modifier votre adresse email, contactez-nous : <a href="mailto:paul@paucoandco.com" style="color:#999;text-decoration:underline">paul@paucoandco.com</a></div></div>
+    <div class="form-group"><label class="form-label">T&eacute;l&eacute;phone</label><input type="tel" id="cp-tel" class="form-input" value="{{ telephone }}" placeholder="06 12 34 56 78"></div>
+  </div>
+
+  <button class="btn btn-green" onclick="saveProfile()" id="cp-save-btn" style="margin-bottom:20px">Enregistrer les modifications</button>
+
+  <!-- SECURITE -->
+  <div class="section">
+    <div class="section-title">S&eacute;curit&eacute; &mdash; Changer le mot de passe</div>
+    <div class="form-group"><label class="form-label">Mot de passe actuel</label><input type="password" id="cp-pw-old" class="form-input"></div>
+    <div class="form-row">
+      <div><label class="form-label">Nouveau mot de passe</label><input type="password" id="cp-pw-new" class="form-input" placeholder="Min. 8 caract&egrave;res"></div>
+      <div><label class="form-label">Confirmation</label><input type="password" id="cp-pw-confirm" class="form-input"></div>
+    </div>
+    <button class="btn btn-outline" onclick="changePassword()" id="cp-pw-btn">Changer le mot de passe</button>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- DONNEES -->
+  <div class="section">
+    <div class="section-title">Mes donn&eacute;es</div>
+    <button class="btn btn-outline" onclick="exportData()">Exporter mes donn&eacute;es (RGPD)</button>
+    <button class="btn btn-red" onclick="document.getElementById('modal-delete').classList.add('open')">Supprimer mon compte</button>
+  </div>
+
+  <div class="legal">
+    <a href="https://paucoandco.com/cgu" target="_blank">CGU</a>
+    &middot;
+    <a href="/mentions-legales">Mentions l&eacute;gales</a>
+    &middot;
+    <a href="https://paucoandco.com/politique-de-confidentialite" target="_blank">Politique de confidentialit&eacute;</a>
+  </div>
+</div>
+
+<!-- Modal suppression -->
+<div class="modal-bg" id="modal-delete" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <h2>Supprimer mon compte ?</h2>
+    <p>Cette action est irr&eacute;versible. Toutes vos donn&eacute;es seront supprim&eacute;es. Un email sera envoy&eacute; pour confirmer la demande.</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="document.getElementById('modal-delete').classList.remove('open')">Annuler</button>
+      <button class="btn btn-red" onclick="deleteAccount()">Confirmer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function showToast(msg, ok){
+  var t=document.createElement('div');
+  t.className='toast '+(ok?'toast-ok':'toast-err');
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(function(){t.remove()},4000);
+}
+
+function saveProfile(){
+  var btn=document.getElementById('cp-save-btn');
+  btn.disabled=true; btn.textContent='Enregistrement...';
+  fetch('/compte/save',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      prenom: document.getElementById('cp-prenom').value,
+      nom: document.getElementById('cp-nom').value,
+      telephone: document.getElementById('cp-tel').value
+    })
+  }).then(function(r){return r.json()}).then(function(d){
+    if(d.ok) showToast('Modifications enregistrees', true);
+    else showToast(d.error || 'Erreur', false);
+    btn.disabled=false; btn.textContent='Enregistrer les modifications';
+  }).catch(function(){
+    showToast('Erreur de connexion', false);
+    btn.disabled=false; btn.textContent='Enregistrer les modifications';
+  });
+}
+
+function changePassword(){
+  var old=document.getElementById('cp-pw-old').value;
+  var nw=document.getElementById('cp-pw-new').value;
+  var cf=document.getElementById('cp-pw-confirm').value;
+  if(!old||!nw){showToast('Remplissez tous les champs', false);return;}
+  var btn=document.getElementById('cp-pw-btn');
+  btn.disabled=true;
+  fetch('/compte/password',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({old:old,'new':nw,confirm:cf})
+  }).then(function(r){return r.json()}).then(function(d){
+    if(d.ok){
+      showToast('Mot de passe modifie', true);
+      document.getElementById('cp-pw-old').value='';
+      document.getElementById('cp-pw-new').value='';
+      document.getElementById('cp-pw-confirm').value='';
+    } else {
+      showToast(d.error || 'Erreur', false);
+    }
+    btn.disabled=false;
+  }).catch(function(){showToast('Erreur', false);btn.disabled=false;});
+}
+
+function exportData(){
+  fetch('/compte/export',{method:'POST'}).then(function(r){return r.json()}).then(function(d){
+    if(d.ok) showToast('Demande envoyee. Vous recevrez vos donnees par email.', true);
+    else showToast('Erreur', false);
+  }).catch(function(){showToast('Erreur', false)});
+}
+
+function deleteAccount(){
+  document.getElementById('modal-delete').classList.remove('open');
+  fetch('/compte/supprimer',{method:'POST'}).then(function(r){return r.json()}).then(function(d){
+    if(d.ok) showToast('Demande de suppression envoyee. Nous vous contacterons sous 48h.', true);
+    else showToast('Erreur', false);
+  }).catch(function(){showToast('Erreur', false)});
+}
+</script>
+</body>
+</html>

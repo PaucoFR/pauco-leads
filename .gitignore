@@ -1,0 +1,6 @@
+.venv/
+
+/app_client/modules/__pycache__/
+
+/app_client/__pycache__/
+.env

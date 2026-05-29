@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="shortcut icon" href="/static/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenue — Pauco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#F7F4EF}
+.onb-card{width:100%;max-width:520px;padding:40px 36px;background:#fff;border:1px solid #E4DDD3;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.04)}
+.logo{text-align:center;margin-bottom:8px}
+.logo-text{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:#0F1F14;letter-spacing:-1px}
+h1{font-size:20px;font-weight:700;color:#0F1F14;margin-bottom:4px;text-align:center}
+.sub{font-size:13px;color:#6A6059;margin-bottom:24px;text-align:center;line-height:1.6}
+.progress{height:4px;background:#E4DDD3;border-radius:2px;margin-bottom:28px;overflow:hidden}
+.progress-bar{height:100%;background:#2D6A4A;border-radius:2px;width:50%;transition:width .3s}
+label{display:block;font-size:12px;font-weight:600;color:#0F1F14;margin-bottom:4px}
+input,select{width:100%;padding:10px 14px;border:1px solid #E4DDD3;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:14px;outline:none;transition:border-color .15s}
+input:focus{border-color:#2D6A4A}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;background:#0F1F14;color:#F7F4EF;transition:background .15s;margin-top:8px}
+.btn:hover{background:#1a3524}
+.hint{font-size:11px;color:#B0A89E;margin-top:-10px;margin-bottom:14px}
+@media(max-width:560px){.onb-card{margin:16px;padding:28px 24px}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="onb-card">
+  <div class="logo"><div class="logo-text">Pauco</div></div>
+  <h1>Bienvenue !</h1>
+  <div class="sub">Configurons votre espace en quelques secondes.<br>Ces informations servent a personnaliser votre tableau de bord.</div>
+  <div class="progress"><div class="progress-bar"></div></div>
+
+  <form method="POST" action="/onboarding">
+    <label>Nom du restaurant</label>
+    <input type="text" name="nom" placeholder="Le Bistrot du Coin" value="{{ restaurant_name }}" required>
+
+    <label>Adresse complete</label>
+    <input type="text" name="adresse" id="onb-adresse" placeholder="12 rue de la Paix" required>
+
+    <label>Ville</label>
+    <input type="text" name="ville" id="onb-ville" placeholder="Paris" required>
+    <div class="hint">L'adresse sera geolocalisee pour la meteo locale</div>
+
+    <input type="hidden" name="lat" id="onb-lat" value="48.8566">
+    <input type="hidden" name="lng" id="onb-lng" value="2.3522">
+
+    <div class="row">
+      <div><label>Nom du gerant</label><input type="text" name="gerant_nom" placeholder="Dupont" required></div>
+      <div><label>Prenom</label><input type="text" name="gerant_prenom" placeholder="Paul" required></div>
+    </div>
+
+    <div class="row">
+      <div><label>Telephone</label><input type="tel" name="telephone" placeholder="06 12 34 56 78"></div>
+      <div><label>Email contact</label><input type="email" name="email" placeholder="contact@restaurant.com"></div>
+    </div>
+
+    <button type="submit" class="btn">Commencer a utiliser Pauco</button>
+  </form>
+</div>
+
+<script>
+// Geocode ville on blur
+document.getElementById('onb-ville').addEventListener('blur',function(){
+  var ville=this.value.trim();
+  if(!ville)return;
+  fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(ville)+'&count=1&language=fr')
+    .then(function(r){return r.json()})
+    .then(function(d){
+      if(d.results&&d.results.length>0){
+        document.getElementById('onb-lat').value=d.results[0].latitude;
+        document.getElementById('onb-lng').value=d.results[0].longitude;
+      }
+    }).catch(function(){});
+});
+</script>
+</body>
+</html>

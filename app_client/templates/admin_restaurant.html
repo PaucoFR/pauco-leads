@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="shortcut icon" href="/static/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ resto.Nom or resto.restaurant_id }} — Admin Pauco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F7F4EF;--white:#FFF;--dark:#0F1F14;--green:#2D6A4A;--green-xl:#D6F0DF;--border:#E4DDD3;--text:#17120D;--muted:#6A6059;--dim:#B0A89E;--r:12px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.admin-banner{background:#991B1B;color:#fff;padding:10px 32px;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700;letter-spacing:.08em;position:sticky;top:0;z-index:100}
+.admin-banner a{color:#fca5a5;text-decoration:none;font-weight:500;font-size:12px;letter-spacing:0}
+.admin-banner a:hover{color:#fff}
+.container{max-width:1200px;margin:0 auto;padding:24px 32px 60px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px}
+.back:hover{color:var(--green)}
+.page-title{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.resto-id{font-family:'Outfit',sans-serif;font-size:12px;color:var(--green);background:var(--green-xl);padding:2px 8px;border-radius:4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:32px}
+.stat{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px;text-align:center}
+.stat .val{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--dark);line-height:1}
+.stat .lbl{font-size:11px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.05em}
+.section{background:var(--white);border:1px solid var(--border);border-radius:var(--r);margin-bottom:24px;overflow:hidden}
+.section-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.section-title{font-size:14px;font-weight:700;color:var(--dark)}
+.section-count{font-family:'Outfit',sans-serif;font-size:11px;background:var(--green-xl);color:var(--green);padding:2px 8px;border-radius:20px;font-weight:600}
+table{width:100%;border-collapse:collapse}
+th{background:var(--bg);font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;padding:8px 14px;text-align:left}
+td{padding:10px 14px;font-size:12px;border-top:1px solid var(--border)}
+tr:hover td{background:#FAFAF8}
+.num{font-family:'Outfit',sans-serif;font-weight:500}
+@media(max-width:768px){.container{padding:16px}.stats{grid-template-columns:1fr 1fr}table{display:block;overflow-x:auto}}
+</style>
+</head>
+<body>
+
+<div class="admin-banner">
+  <span>ADMIN</span>
+  <a href="/admin">Retour au dashboard</a>
+</div>
+
+<div class="container">
+  <a href="/admin" class="back">&larr; Dashboard admin</a>
+
+  <div class="page-title">{{ resto.Nom or 'Sans nom' }}</div>
+  <div class="page-sub">
+    <span class="resto-id">{{ resto.Restaurant_ID or resto.id }}</span>
+    {% if resto.Ville %} &middot; {{ resto.Ville }}{% endif %}
+    {% if resto.Gerant_prenom %} &middot; {{ resto.Gerant_prenom }} {{ resto.Gerant_nom or '' }}{% endif %}
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="val">{{ data.employes|length }}</div><div class="lbl">Employes</div></div>
+    <div class="stat"><div class="val">{{ data.ca_jour|length }}</div><div class="lbl">Jours CA</div></div>
+    <div class="stat"><div class="val">{{ data.depenses|length }}</div><div class="lbl">Depenses</div></div>
+    <div class="stat"><div class="val">{{ data.fiches|length }}</div><div class="lbl">Fiches</div></div>
+    <div class="stat"><div class="val">{{ data.planning|length }}</div><div class="lbl">Planning</div></div>
+    <div class="stat"><div class="val">{{ data.evenements|length }}</div><div class="lbl">Evenements</div></div>
+  </div>
+
+  <!-- Employes -->
+  {% if data.employes %}
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Employes</span>
+      <span class="section-count">{{ data.employes|length }}</span>
+    </div>
+    <table>
+      <thead><tr><th>Prenom</th><th>Nom</th><th>Poste</th><th>Pole</th><th>Contrat</th><th>Heures/sem</th><th>Salaire brut</th></tr></thead>
+      <tbody>
+      {% for e in data.employes %}
+      <tr>
+        <td style="font-weight:600">{{ e.get('Prénom', e.get('Prenom','—')) }}</td>
+        <td>{{ e.get('Nom','—') }}</td>
+        <td>{{ e.get('Poste','—') }}</td>
+        <td>{{ e.get('Pôle', e.get('Pole','—')) }}</td>
+        <td>{{ e.get('Type_contrat','—') }}</td>
+        <td class="num">{{ e.get('Heures_semaine','—') }}</td>
+        <td class="num">{{ "%.0f"|format(e.get('Salaire_brut',0)) }} &euro;</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  <!-- CA recent -->
+  {% if data.ca_jour %}
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">CA Journalier (derniers 10 jours)</span>
+      <span class="section-count">{{ data.ca_jour|length }} total</span>
+    </div>
+    <table>
+      <thead><tr><th>Date</th><th>CA Total</th><th>CA Restaurant</th><th>CA Bar</th><th>Couverts midi</th><th>Couverts soir</th><th>Ticket moyen</th></tr></thead>
+      <tbody>
+      {% for c in data.ca_jour[:10] %}
+      <tr>
+        <td class="num" style="font-weight:600">{{ c.get('Date','—') }}</td>
+        <td class="num">{{ "%.0f"|format(c.get('CA_Total',0)) }} &euro;</td>
+        <td class="num">{{ "%.0f"|format(c.get('CA_Restaurant',0)) }} &euro;</td>
+        <td class="num">{{ "%.0f"|format(c.get('CA_Bar',0)) }} &euro;</td>
+        <td class="num">{{ c.get('Couverts_Midi','—') }}</td>
+        <td class="num">{{ c.get('Couverts_Soir','—') }}</td>
+        <td class="num">{{ "%.1f"|format(c.get('Ticket_Moyen',0)) }} &euro;</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  <!-- Fiches -->
+  {% if data.fiches %}
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Fiches techniques</span>
+      <span class="section-count">{{ data.fiches|length }}</span>
+    </div>
+    <table>
+      <thead><tr><th>Nom</th><th>Type</th><th>Categorie</th><th>Prix vente</th><th>Cout</th><th>Marge</th></tr></thead>
+      <tbody>
+      {% for f in data.fiches %}
+      <tr>
+        <td style="font-weight:600">{{ f.get('Nom','—') }}</td>
+        <td>{{ f.get('Type','—') }}</td>
+        <td>{{ f.get('Catégorie', f.get('Categorie','—')) }}</td>
+        <td class="num">{{ "%.1f"|format(f.get('Prix_vente',0)) }} &euro;</td>
+        <td class="num">{{ "%.2f"|format(f.get('Cout_total',0)) }} &euro;</td>
+        <td class="num">{{ "%.0f"|format(f.get('Marge_pct',0)) }}%</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  <!-- Depenses recentes -->
+  {% if data.depenses %}
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Depenses (dernieres 15)</span>
+      <span class="section-count">{{ data.depenses|length }} total</span>
+    </div>
+    <table>
+      <thead><tr><th>Libelle</th><th>Type</th><th>Categorie</th><th>Montant</th><th>Mois</th></tr></thead>
+      <tbody>
+      {% for d in data.depenses[:15] %}
+      <tr>
+        <td style="font-weight:600">{{ d.get('Libellé', d.get('Libelle','—')) }}</td>
+        <td>{{ d.get('Type','—') }}</td>
+        <td>{{ d.get('Catégorie', d.get('Categorie','—')) }}</td>
+        <td class="num">{{ "%.0f"|format(d.get('Montant',0)) }} &euro;</td>
+        <td class="num">{{ d.get('Mois','—') }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+</div>
+</body>
+</html>

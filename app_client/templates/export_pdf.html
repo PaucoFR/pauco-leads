@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="shortcut icon" href="/static/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rapport Gestion — {{ mois_label }} — Pauco</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', -apple-system, sans-serif; color: #17120D; background: #F7F4EF; font-size: 11px; line-height: 1.45; }
+
+  .download-bar { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid #E4DDD3; padding: 12px 40px; display: flex; align-items: center; justify-content: space-between; }
+  .download-bar-title { font-size: 14px; font-weight: 600; }
+  .download-bar-sub { font-size: 11px; color: #6A6059; }
+  .btn-dl { display: inline-flex; align-items: center; gap: 8px; background: #2D6A4A; color: #fff; font-size: 13px; font-weight: 600; padding: 10px 24px; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; }
+  .btn-dl:hover { background: #245A3E; }
+  .btn-dl svg { width: 16px; height: 16px; }
+
+  .header { background: #0C0C0C; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: 2px; }
+  .header-info { text-align: right; }
+  .header-resto { font-size: 13px; font-weight: 600; color: #fff; }
+  .header-sub { font-size: 10px; color: #9CA3AF; margin-top: 1px; }
+
+  .wrap { padding: 14px 32px; max-width: 100%; margin: 0 auto; }
+  .section-title { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #6A6059; margin: 12px 0 6px 0; }
+  .section-title:first-child { margin-top: 0; }
+
+  .kpi-grid { display: flex; gap: 8px; }
+  .kpi { flex: 1; background: #fff; border: 1px solid #E4DDD3; border-radius: 8px; padding: 10px 12px; text-align: center; }
+  .kpi-val { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: #2D6A4A; line-height: 1; }
+  .kpi-val.amber { color: #D97706; }
+  .kpi-lbl { font-size: 8px; font-weight: 600; color: #6A6059; text-transform: uppercase; letter-spacing: .4px; margin-top: 4px; }
+  .kpi-sub { font-size: 9px; color: #B0A89E; margin-top: 2px; }
+
+  .card { background: #fff; border: 1px solid #E4DDD3; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; border-bottom: 1px solid #E4DDD3; }
+  .card-title { font-size: 11px; font-weight: 600; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; padding: 5px 12px; font-size: 8px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #B0A89E; background: #F7F4EF; border-bottom: 1px solid #E4DDD3; }
+  td { padding: 5px 12px; font-size: 10px; border-bottom: 1px solid #E4DDD3; }
+  tr:last-child td { border-bottom: none; }
+  .num { text-align: right; font-weight: 600; font-family: 'Fraunces', serif; }
+  .green { color: #2D6A4A; } .amber { color: #D97706; } .red { color: #DC2626; }
+  .tbl-total td { font-weight: 700; background: #F7F4EF; border-top: 2px solid #E4DDD3; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .footer { background: #0C0C0C; padding: 8px 32px; text-align: center; margin-top: 12px; }
+  .footer-text { font-size: 9px; color: rgba(255,255,255,.5); }
+  .footer-text a { color: #6DBF85; text-decoration: none; }
+
+  @media print {
+    @page { size: A4 landscape; margin: 1cm; }
+    html, body { background: #fff !important; }
+    body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; font-size: 10px; }
+    .download-bar { display: none !important; }
+    .header { background: #0C0C0C !important; padding: 10px 24px !important; }
+    .footer { background: #0C0C0C !important; padding: 6px 24px !important; margin-top: 8px !important; }
+    .kpi-val { color: #2D6A4A !important; }
+    .kpi-val.amber { color: #D97706 !important; }
+    .card, .kpi { break-inside: avoid; }
+    .wrap { padding: 10px 24px !important; }
+    /* Empêche le navigateur d'imprimer les URL après les liens */
+    a[href]:after { content: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="download-bar">
+  <div>
+    <div class="download-bar-title">Rapport Gestion — {{ mois_label }}</div>
+    <div class="download-bar-sub">Cliquez sur le bouton pour generer le PDF</div>
+  </div>
+  <button class="btn-dl" onclick="window.print()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger PDF
+  </button>
+</div>
+
+<div class="header">
+  <div class="logo">PAUCO</div>
+  <div class="header-info">
+    <div class="header-resto">Rapport Gestion</div>
+    <div class="header-sub">{{ mois_label }}</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="section-title">Indicateurs cles</div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-val">{{ "{:,.0f}".format(stats.ca_total).replace(",", " ") }} &euro;</div>
+      <div class="kpi-lbl">CA du mois</div>
+      <div class="kpi-sub">{{ stats.nb_jours }} jours</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">{{ stats.couverts_total }}</div>
+      <div class="kpi-lbl">Couverts</div>
+      <div class="kpi-sub">Midi + soir</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">{{ stats.ticket_moyen }} &euro;</div>
+      <div class="kpi-lbl">Ticket moyen</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val amber">{{ "{:,.0f}".format(total_depenses).replace(",", " ") }} &euro;</div>
+      <div class="kpi-lbl">Total dépenses</div>
+    </div>
+  </div>
+
+  <div class="section-title">Ratios</div>
+  <div class="card">
+    <table>
+      <tr><td>Food cost</td><td class="num {{ 'green' if food_cost <= 32 else ('amber' if food_cost <= 38 else 'red') }}">{{ food_cost }}%</td></tr>
+      <tr><td>Cout boissons</td><td class="num {{ 'green' if beverage_cost|default(0) <= 24 else ('amber' if beverage_cost|default(0) <= 30 else 'red') }}">{{ beverage_cost|default(0) }}%</td></tr>
+      <tr><td>Cout personnel</td><td class="num {{ 'green' if labour_pct <= 35 else ('amber' if labour_pct <= 45 else 'red') }}">{{ labour_pct }}%</td></tr>
+      <tr><td>Charges directes</td><td class="num {{ 'green' if prime_cost <= 65 else ('amber' if prime_cost <= 75 else 'red') }}">{{ prime_cost }}%</td></tr>
+      <tr><td>Résultat net</td><td class="num {{ 'green' if resultat_net >= 10 else ('amber' if resultat_net >= 5 else 'red') }}">{{ resultat_net }}%</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Dépenses par catégorie</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Charges fixes</div></div>
+      <table>
+        {% for f in fixes_cat %}
+        <tr><td>{{ f.categorie }}</td><td class="num">{{ "{:,.2f}".format(f.total).replace(",", " ") }} &euro;</td></tr>
+        {% else %}
+        <tr><td colspan="2" style="color:#B0A89E;text-align:center;padding:20px">Aucune</td></tr>
+        {% endfor %}
+        {% if fixes_cat %}
+        <tr class="tbl-total"><td>Total</td><td class="num green">{{ "{:,.2f}".format(dep.total_fixes).replace(",", " ") }} &euro;</td></tr>
+        {% endif %}
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Charges variables</div></div>
+      <table>
+        {% for v in variables_cat %}
+        <tr><td>{{ v.categorie }}</td><td class="num">{{ "{:,.2f}".format(v.total).replace(",", " ") }} &euro;</td></tr>
+        {% else %}
+        <tr><td colspan="2" style="color:#B0A89E;text-align:center;padding:20px">Aucune</td></tr>
+        {% endfor %}
+        {% if variables_cat %}
+        <tr class="tbl-total"><td>Total</td><td class="num green">{{ "{:,.2f}".format(dep.total_variables).replace(",", " ") }} &euro;</td></tr>
+        {% endif %}
+      </table>
+    </div>
+  </div>
+
+  {% set has_comparaison = stats_prec and (stats_prec.ca_total or stats_prec.couverts_total or stats_prec.ticket_moyen) %}
+  {% if has_comparaison %}
+  <div class="section-title">Comparaison avec {{ mois_prec_label }}</div>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>Indicateur</th><th style="text-align:right">{{ mois_prec_label }}</th><th style="text-align:right">{{ mois_label }}</th><th style="text-align:right">Évolution</th></tr>
+      </thead>
+      <tbody>
+        {% set ca_prec = stats_prec.ca_total %}
+        {% set ca_curr = stats.ca_total %}
+        {% set diff_ca = ca_curr - ca_prec %}
+        <tr>
+          <td>CA</td>
+          <td class="num">{{ "{:,.0f}".format(ca_prec).replace(",", " ") }} &euro;</td>
+          <td class="num">{{ "{:,.0f}".format(ca_curr).replace(",", " ") }} &euro;</td>
+          <td class="num {{ 'green' if diff_ca >= 0 else 'red' }}">{{ "{:+,.0f}".format(diff_ca).replace(",", " ") }} &euro;</td>
+        </tr>
+        {% set dep_prec_total = dep_prec.total_fixes + dep_prec.total_variables %}
+        {% set dep_curr_total = total_depenses %}
+        {% set diff_dep = dep_curr_total - dep_prec_total %}
+        <tr>
+          <td>Dépenses</td>
+          <td class="num">{{ "{:,.0f}".format(dep_prec_total).replace(",", " ") }} &euro;</td>
+          <td class="num">{{ "{:,.0f}".format(dep_curr_total).replace(",", " ") }} &euro;</td>
+          <td class="num {{ 'red' if diff_dep > 0 else 'green' }}">{{ "{:+,.0f}".format(diff_dep).replace(",", " ") }} &euro;</td>
+        </tr>
+        <tr>
+          <td>Ticket moyen</td>
+          <td class="num">{{ stats_prec.ticket_moyen }} &euro;</td>
+          <td class="num">{{ stats.ticket_moyen }} &euro;</td>
+          {% set diff_tm = stats.ticket_moyen - stats_prec.ticket_moyen %}
+          <td class="num {{ 'green' if diff_tm >= 0 else 'red' }}">{{ "{:+.2f}".format(diff_tm) }} &euro;</td>
+        </tr>
+        <tr>
+          <td>Couverts</td>
+          <td class="num">{{ stats_prec.couverts_total }}</td>
+          <td class="num">{{ stats.couverts_total }}</td>
+          {% set diff_couv = stats.couverts_total - stats_prec.couverts_total %}
+          <td class="num {{ 'green' if diff_couv >= 0 else 'red' }}">{{ "{:+d}".format(diff_couv) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+</div>
+
+<div class="footer">
+  <div class="footer-text">Généré par <a href="https://paucoandco.com">Pauco</a> — paucoandco.com — {{ date_generation }}</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="shortcut icon" href="/static/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenue — Pauco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#F7F4EF;padding:20px}
+.card{width:100%;max-width:460px;padding:40px 36px;background:#fff;border:1px solid #E4DDD3;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.04)}
+.logo{text-align:center;margin-bottom:8px}
+.logo-text{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:#0F1F14;letter-spacing:-1px}
+h1{font-size:18px;font-weight:700;color:#0F1F14;margin-bottom:4px;text-align:center}
+.sub{font-size:13px;color:#6A6059;margin-bottom:24px;text-align:center}
+label{display:block;font-size:12px;font-weight:600;color:#0F1F14;margin-bottom:4px}
+input{width:100%;padding:10px 14px;border:1px solid #E4DDD3;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:14px;outline:none;transition:border-color .15s}
+input:focus{border-color:#2D6A4A}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;transition:background .15s;margin-top:8px}
+.btn-primary{background:#0F1F14;color:#F7F4EF}
+.btn-primary:hover{background:#1a3524}
+.error{background:#FEE2E2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#991B1B;margin-bottom:16px}
+.sep{height:1px;background:#E4DDD3;margin:4px 0 18px}
+@media(max-width:480px){.card{margin:0;padding:28px 20px}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo"><div class="logo-text">Pauco</div></div>
+  <h1>Bienvenue chez Pauco</h1>
+  <div class="sub">Creez votre espace restaurant en 1 minute</div>
+
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+  {% if step == 4 %}
+  <div style="text-align:center;padding:20px 0">
+    <div style="font-size:48px;margin-bottom:16px">&#10003;</div>
+    <h2 style="font-size:20px;color:#0F1F14;margin-bottom:8px">Votre espace est pr&ecirc;t !</h2>
+    <p style="font-size:14px;color:#6A6059;margin-bottom:24px">Connectez-vous pour acc&eacute;der &agrave; votre dashboard.</p>
+    <a href="/login" class="btn btn-primary" style="display:inline-block;text-decoration:none;text-align:center">Se connecter &rarr;</a>
+  </div>
+  {% else %}
+  <form method="POST" action="/onboarding">
+    {% if session_id %}<input type="hidden" name="session_id" value="{{ session_id }}">{% endif %}
+    {% if token %}<input type="hidden" name="token" value="{{ token }}">{% endif %}
+    <input type="hidden" name="step" value="1">
+    <div class="row">
+      <div>
+        <label>Pr&eacute;nom</label>
+        <input type="text" name="prenom" value="{{ prenom or '' }}" placeholder="Jean" required>
+      </div>
+      <div>
+        <label>Nom</label>
+        <input type="text" name="nom" value="{{ nom or '' }}" placeholder="Votre nom de famille" required>
+      </div>
+    </div>
+
+    <label>Nom du restaurant</label>
+    <input type="text" name="nom_restaurant" value="{{ nom_restaurant or '' }}" placeholder="Le Bistrot du Port" required>
+
+    <label>Adresse compl&egrave;te</label>
+    <input type="text" name="adresse" value="{{ adresse or '' }}" placeholder="12 rue de la Paix">
+
+    <label>Ville</label>
+    <input type="text" name="ville" value="{{ ville or '' }}" placeholder="Marseille" required>
+
+    <label>T&eacute;l&eacute;phone</label>
+    <input type="tel" name="telephone" value="{{ telephone or '' }}" placeholder="06 12 34 56 78">
+
+    <div class="sep"></div>
+
+    <label>Email contact</label>
+    <input type="email" name="email" value="{{ email or '' }}" placeholder="vous@restaurant.com" required>
+
+    <div class="row">
+      <div>
+        <label>Mot de passe</label>
+        <input type="password" name="password" placeholder="Min. 8 caracteres" required minlength="8">
+      </div>
+      <div>
+        <label>Confirmation</label>
+        <input type="password" name="password2" placeholder="Retapez" required minlength="8">
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cr&eacute;er mon espace</button>
+  </form>
+  {% endif %}
+</div>
+</body>
+</html>

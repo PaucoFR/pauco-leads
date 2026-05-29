@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="shortcut icon" href="/static/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion — Pauco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#F7F4EF}
+.login-card{width:100%;max-width:400px;padding:40px 36px;background:#fff;border:1px solid #E4DDD3;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.04)}
+.logo{text-align:center;margin-bottom:32px}
+.logo-text{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:#0F1F14;letter-spacing:-1px}
+.logo-sub{font-size:12px;color:#B0A89E;margin-top:2px}
+h1{font-size:18px;font-weight:700;color:#0F1F14;margin-bottom:4px;text-align:center}
+.sub{font-size:13px;color:#6A6059;margin-bottom:24px;text-align:center}
+label{display:block;font-size:12px;font-weight:600;color:#0F1F14;margin-bottom:4px}
+input{width:100%;padding:10px 14px;border:1px solid #E4DDD3;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:16px;outline:none;transition:border-color .15s}
+input:focus{border-color:#2D6A4A}
+.btn{width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-primary{background:#0F1F14;color:#F7F4EF}
+.btn-primary:hover{background:#1a3524}
+.error{background:#FEE2E2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#991B1B;margin-bottom:16px}
+.link{display:block;text-align:center;margin-top:16px;font-size:12px;color:#6A6059;text-decoration:none}
+.link:hover{color:#2D6A4A}
+@media(max-width:480px){.login-card{margin:16px;padding:28px 24px}}
+</style>
+</head>
+<body>
+<div class="login-card">
+  <div class="logo">
+    <div class="logo-text">Pauco</div>
+    <div class="logo-sub">Module Gestion</div>
+  </div>
+  {% if mode == 'login' %}
+  <h1>Connexion</h1>
+  <div class="sub">Acc&eacute;dez &agrave; votre espace gestion</div>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  {% if success %}<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px;font-size:13px;color:#166534;margin-bottom:16px">{{ success }}</div>{% endif %}
+  <form method="POST" action="/login">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="votre@email.com" required autofocus>
+    <label>Mot de passe</label>
+    <input type="password" name="password" placeholder="Votre mot de passe" required>
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+  </form>
+  <a href="/forgot-password" class="link">Mot de passe oubli&eacute;&nbsp;?</a>
+
+  {% elif mode == 'forgot' %}
+  <h1>Mot de passe oubli&eacute;</h1>
+  <div class="sub">Entrez votre email pour recevoir un lien de r&eacute;initialisation</div>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  {% if success %}<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px;font-size:13px;color:#166534;margin-bottom:16px">{{ success }}</div>{% endif %}
+  <form method="POST" action="/forgot-password">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="votre@email.com" required autofocus>
+    <button type="submit" class="btn btn-primary">Envoyer le lien</button>
+  </form>
+  <a href="/login" class="link">&larr; Retour &agrave; la connexion</a>
+
+  {% elif mode == 'reset' %}
+  <h1>Nouveau mot de passe</h1>
+  <div class="sub">Choisissez votre nouveau mot de passe</div>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  <form method="POST">
+    <label>Nouveau mot de passe</label>
+    <input type="password" name="password" placeholder="Minimum 6 caract&egrave;res" required minlength="6">
+    <label>Confirmer</label>
+    <input type="password" name="password2" placeholder="Retapez le mot de passe" required>
+    <button type="submit" class="btn btn-primary">R&eacute;initialiser</button>
+  </form>
+
+  {% elif mode == 'setup' %}
+  <h1>Créer votre mot de passe</h1>
+  <div class="sub">Bienvenue ! Choisissez votre mot de passe pour accéder à votre espace.</div>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  <form method="POST" action="/setup-password">
+    <input type="hidden" name="token" value="{{ token }}">
+    <label>Mot de passe</label>
+    <input type="password" name="password" placeholder="Minimum 6 caractères" required minlength="6">
+    <label>Confirmer le mot de passe</label>
+    <input type="password" name="password2" placeholder="Retapez le mot de passe" required>
+    <button type="submit" class="btn btn-primary">Créer mon mot de passe</button>
+  </form>
+
+  {% elif mode == 'admin' %}
+  <h1>Créer un compte</h1>
+  <div class="sub">R&eacute;serv&eacute; &agrave; l'administrateur &mdash; li&eacute; au restaurant d&eacute;mo</div>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  {% if success %}
+  <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px 18px;font-size:13px;color:#166534;margin-bottom:16px;white-space:pre-line;line-height:1.8;position:relative">{{ success }}
+    <button onclick="navigator.clipboard.writeText(this.parentElement.textContent.trim());this.textContent='Copie !';setTimeout(()=>this.textContent='Copier',1500)" style="position:absolute;top:8px;right:8px;background:#166534;color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer">Copier</button>
+  </div>
+  {% endif %}
+  <form method="POST">
+    <label>Mot de passe admin</label>
+    <input type="password" name="admin_password" required>
+    <label>Type de compte</label>
+    <select name="account_type" style="width:100%;padding:10px 14px;border:1px solid #E4DDD3;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:16px">
+      <option value="demo">Demo — Le Bistrot du Port</option>
+      <option value="client">Client r&eacute;el &mdash; cr&eacute;er un nouveau restaurant</option>
+      {% if restaurants %}
+      <optgroup label="Restaurant existant">
+        {% for r in restaurants %}
+        <option value="{{ r.restaurant_id }}">{{ r.nom or r.restaurant_id }} — {{ r.restaurant_id }}</option>
+        {% endfor %}
+      </optgroup>
+      {% endif %}
+    </select>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div><label>Prénom</label><input type="text" name="prenom" placeholder="Jean" required></div>
+      <div><label>Nom</label><input type="text" name="nom" placeholder="Dupont" required></div>
+    </div>
+    <label>Ville</label>
+    <input type="text" name="ville" placeholder="Marseille">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="client@email.com" required>
+    <label>Mot de passe</label>
+    <input type="text" name="password" placeholder="Ex: Pauco2026" required>
+    <button type="submit" class="btn btn-primary">Créer le compte</button>
+  </form>
+  <a href="/login" class="link">&larr; Retour</a>
+
+  {% elif mode == 'admin_login' %}
+  <h1>Administration</h1>
+  <div class="sub">Acc&egrave;s r&eacute;serv&eacute; &agrave; l'administrateur Pauco</div>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  <form method="POST" action="/admin/login">
+    <label>Mot de passe admin</label>
+    <input type="password" name="password" placeholder="Mot de passe" required autofocus>
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+  </form>
+  <a href="/login" class="link">&larr; Retour</a>
+  {% endif %}
+</div>
+</body>
+</html>
