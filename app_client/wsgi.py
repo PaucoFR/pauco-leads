@@ -13,5 +13,7 @@ init_db()
 init_auth_tables()
 start_scheduler()
 
+sync.preload_demo()
+
 sys.stdout.flush()
 sys.stderr.flush()
