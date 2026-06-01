@@ -3,6 +3,7 @@ WSGI entrypoint — Module Gestion Pauco (Isolated App Client).
 Used by: gunicorn wsgi:app on Railway
 """
 import os
+import sys
 from app import app, init_db, start_scheduler
 from modules.auth import init_auth_tables
 from modules import airtable_sync as sync
@@ -11,3 +12,6 @@ from modules import airtable_sync as sync
 init_db()
 init_auth_tables()
 start_scheduler()
+
+sys.stdout.flush()
+sys.stderr.flush()
