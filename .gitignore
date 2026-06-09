@@ -4,3 +4,8 @@
 
 /app_client/__pycache__/
 .env
+
+/app_client/gestion.db
+/app_client/gestion.db.bak
+
+app_client/gestion.db
